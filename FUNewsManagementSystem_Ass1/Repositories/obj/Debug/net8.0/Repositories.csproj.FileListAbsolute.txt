@@ -1,0 +1,11 @@
+D:\FALL25\PRN222\HE170125_PRN222_Ass01_FUNewsManagementSystem\FUNewsManagementSystem_Ass1\Repositories\bin\Debug\net8.0\Repositories.deps.json
+D:\FALL25\PRN222\HE170125_PRN222_Ass01_FUNewsManagementSystem\FUNewsManagementSystem_Ass1\Repositories\bin\Debug\net8.0\Repositories.dll
+D:\FALL25\PRN222\HE170125_PRN222_Ass01_FUNewsManagementSystem\FUNewsManagementSystem_Ass1\Repositories\bin\Debug\net8.0\Repositories.pdb
+D:\FALL25\PRN222\HE170125_PRN222_Ass01_FUNewsManagementSystem\FUNewsManagementSystem_Ass1\Repositories\obj\Debug\net8.0\Repositories.GeneratedMSBuildEditorConfig.editorconfig
+D:\FALL25\PRN222\HE170125_PRN222_Ass01_FUNewsManagementSystem\FUNewsManagementSystem_Ass1\Repositories\obj\Debug\net8.0\Repositories.AssemblyInfoInputs.cache
+D:\FALL25\PRN222\HE170125_PRN222_Ass01_FUNewsManagementSystem\FUNewsManagementSystem_Ass1\Repositories\obj\Debug\net8.0\Repositories.AssemblyInfo.cs
+D:\FALL25\PRN222\HE170125_PRN222_Ass01_FUNewsManagementSystem\FUNewsManagementSystem_Ass1\Repositories\obj\Debug\net8.0\Repositories.csproj.CoreCompileInputs.cache
+D:\FALL25\PRN222\HE170125_PRN222_Ass01_FUNewsManagementSystem\FUNewsManagementSystem_Ass1\Repositories\obj\Debug\net8.0\Repositories.dll
+D:\FALL25\PRN222\HE170125_PRN222_Ass01_FUNewsManagementSystem\FUNewsManagementSystem_Ass1\Repositories\obj\Debug\net8.0\refint\Repositories.dll
+D:\FALL25\PRN222\HE170125_PRN222_Ass01_FUNewsManagementSystem\FUNewsManagementSystem_Ass1\Repositories\obj\Debug\net8.0\Repositories.pdb
+D:\FALL25\PRN222\HE170125_PRN222_Ass01_FUNewsManagementSystem\FUNewsManagementSystem_Ass1\Repositories\obj\Debug\net8.0\ref\Repositories.dll
