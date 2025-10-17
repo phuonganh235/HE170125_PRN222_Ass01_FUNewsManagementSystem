@@ -5,10 +5,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{6F632317-54E6-4C15-BFE5-0DBAE92F26F0}|DataAccessObjects\\DataAccessObjects.csproj|d:\\fall25\\prn222\\he170125_prn222_ass01_funewsmanagementsystem\\funewsmanagementsystem_ass1\\dataaccessobjects\\funewsmanagementcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{6F632317-54E6-4C15-BFE5-0DBAE92F26F0}|DataAccessObjects\\DataAccessObjects.csproj|solutionrelative:dataaccessobjects\\funewsmanagementcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{08711F8F-26B2-422E-BE97-296086F09E69}|BusinessObjects\\BusinessObjects.csproj|d:\\fall25\\prn222\\he170125_prn222_ass01_funewsmanagementsystem\\funewsmanagementsystem_ass1\\businessobjects\\models\\category.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{08711F8F-26B2-422E-BE97-296086F09E69}|BusinessObjects\\BusinessObjects.csproj|solutionrelative:businessobjects\\models\\category.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -18,21 +14,8 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 19,
           "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "FunewsManagementContext.cs",
-              "DocumentMoniker": "D:\\FALL25\\PRN222\\HE170125_PRN222_Ass01_FUNewsManagementSystem\\FUNewsManagementSystem_Ass1\\DataAccessObjects\\FunewsManagementContext.cs",
-              "RelativeDocumentMoniker": "DataAccessObjects\\FunewsManagementContext.cs",
-              "ToolTip": "D:\\FALL25\\PRN222\\HE170125_PRN222_Ass01_FUNewsManagementSystem\\FUNewsManagementSystem_Ass1\\DataAccessObjects\\FunewsManagementContext.cs",
-              "RelativeToolTip": "DataAccessObjects\\FunewsManagementContext.cs",
-              "ViewState": "AgIAACIAAAAAAAAAAAAqwAQAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-13T13:49:44.508Z",
-              "EditorCaption": ""
-            },
             {
               "$type": "Bookmark",
               "Name": "ST:130:0:{13b12e3e-c1b4-4539-9371-4fe9a0d523fc}"
@@ -111,15 +94,15 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Category.cs",
-              "DocumentMoniker": "D:\\FALL25\\PRN222\\HE170125_PRN222_Ass01_FUNewsManagementSystem\\FUNewsManagementSystem_Ass1\\BusinessObjects\\Models\\Category.cs",
-              "RelativeDocumentMoniker": "BusinessObjects\\Models\\Category.cs",
-              "ToolTip": "D:\\FALL25\\PRN222\\HE170125_PRN222_Ass01_FUNewsManagementSystem\\FUNewsManagementSystem_Ass1\\BusinessObjects\\Models\\Category.cs",
-              "RelativeToolTip": "BusinessObjects\\Models\\Category.cs",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "DocumentIndex": 0,
+              "Title": "FunewsManagementContext.cs",
+              "DocumentMoniker": "D:\\FALL25\\PRN222\\HE170125_PRN222_Ass01_FUNewsManagementSystem\\FUNewsManagementSystem_Ass1\\DataAccessObjects\\FunewsManagementContext.cs",
+              "RelativeDocumentMoniker": "DataAccessObjects\\FunewsManagementContext.cs",
+              "ToolTip": "D:\\FALL25\\PRN222\\HE170125_PRN222_Ass01_FUNewsManagementSystem\\FUNewsManagementSystem_Ass1\\DataAccessObjects\\FunewsManagementContext.cs",
+              "RelativeToolTip": "DataAccessObjects\\FunewsManagementContext.cs",
+              "ViewState": "AgIAABIAAAAAAAAAAAAYwB4AAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-13T13:19:15.416Z",
+              "WhenOpened": "2025-10-13T14:00:11.169Z",
               "EditorCaption": ""
             }
           ]
