@@ -1,0 +1,58 @@
+﻿@model BusinessObjects.SystemAccount
+
+<form asp-action="@ViewContext.RouteData.Values["action"]" method="post" id="accountForm">
+    <div class="mb-3">
+        <label asp-for="AccountName" class="form-label">Tên tài khoản</label>
+        <input asp-for="AccountName" class="form-control" />
+        <span asp-validation-for="AccountName" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="AccountEmail" class="form-label">Email</label>
+        <input asp-for="AccountEmail" class="form-control" />
+        <span asp-validation-for="AccountEmail" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="AccountPassword" class="form-label">Mật khẩu</label>
+        <input asp-for="AccountPassword" type="password" class="form-control" />
+        <span asp-validation-for="AccountPassword" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="AccountRole" class="form-label">Vai trò</label>
+        <select asp-for="AccountRole" class="form-select">
+            <option value="1">Nhân viên</option>
+            <option value="2">Giảng viên</option>
+            <option value="0">Quản trị</option>
+        </select>
+        <span asp-validation-for="AccountRole" class="text-danger"></span>
+    </div>
+
+    <div class="text-end">
+        <button type="submit" class="btn btn-primary">Lưu</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+    </div>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        $('#accountForm').submit(function (e) {
+            e.preventDefault();
+            var form = $(this);
+            $.ajax({
+                type: 'POST',
+                url: form.attr('action'),
+                data: form.serialize(),
+                success: function (response) {
+                    if (response.success) {
+                        location.reload();
+                    } else {
+                        $('#modalAccount .modal-body').html(response);
+                    }
+                }
+            });
+        });
+    </script>
+}
