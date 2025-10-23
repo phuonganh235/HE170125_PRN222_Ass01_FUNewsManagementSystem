@@ -1,35 +1,45 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
-namespace BusinessObjects;
-
-public partial class NewsArticle
+namespace BusinessObjects
 {
-    public string NewsArticleId { get; set; } = null!;
+    public class NewsArticle
+    {
+        [Key]
+        public int NewsArticleId { get; set; }
 
-    public string? NewsTitle { get; set; }
+        [Required(ErrorMessage = "Tiêu đề không được để trống")]
+        [StringLength(200)]
+        public string NewsTitle { get; set; }
 
-    public string Headline { get; set; } = null!;
+        [Required(ErrorMessage = "Nội dung không được để trống")]
+        public string Content { get; set; }
 
-    public DateTime? CreatedDate { get; set; }
+        [Required]
+        [StringLength(20)]
+        public string NewsStatus { get; set; }   // VD: "Draft" hoặc "Published"
 
-    public string? NewsContent { get; set; }
+        [Required]
+        public int CategoryId { get; set; }
 
-    public string? NewsSource { get; set; }
+        [ForeignKey("CategoryId")]
+        public Category Category { get; set; }
 
-    public short? CategoryId { get; set; }
+        public int CreatedById { get; set; }
+        public int? UpdatedById { get; set; }
 
-    public bool? NewsStatus { get; set; }
+        [ForeignKey("CreatedById")]
+        public SystemAccount CreatedBy { get; set; }
 
-    public short? CreatedById { get; set; }
+        [ForeignKey("UpdatedById")]
+        public SystemAccount UpdatedBy { get; set; }
 
-    public short? UpdatedById { get; set; }
+        public DateTime CreatedDate { get; set; }
+        public DateTime? ModifiedDate { get; set; }
 
-    public DateTime? ModifiedDate { get; set; }
-
-    public virtual Category? Category { get; set; }
-
-    public virtual SystemAccount? CreatedBy { get; set; }
-
-    public virtual ICollection<Tag> Tags { get; set; } = new List<Tag>();
+        // Navigation to tags (many-to-many via NewsTag)
+        public ICollection<NewsTag> NewsTags { get; set; }
+    }
 }

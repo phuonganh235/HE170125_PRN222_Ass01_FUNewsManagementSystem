@@ -1,23 +1,30 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
-namespace BusinessObjects;
-
-public partial class Category
+namespace BusinessObjects
 {
-    public short CategoryId { get; set; }
+    public class Category
+    {
+        [Key]
+        public int CategoryId { get; set; }
 
-    public string CategoryName { get; set; } = null!;
+        [Required(ErrorMessage = "Tên danh mục không được để trống")]
+        [StringLength(100)]
+        public string CategoryName { get; set; }
 
-    public string CategoryDesciption { get; set; } = null!;
+        [StringLength(255)]
+        public string Description { get; set; }
 
-    public short? ParentCategoryId { get; set; }
+        public bool IsActive { get; set; } = true;  // mặc định là kích hoạt
 
-    public bool? IsActive { get; set; }
+        public int? ParentCategoryId { get; set; }
 
-    public virtual ICollection<Category> InverseParentCategory { get; set; } = new List<Category>();
+        [ForeignKey("ParentCategoryId")]
+        public Category ParentCategory { get; set; }  // Danh mục cha (nếu có)
 
-    public virtual ICollection<NewsArticle> NewsArticles { get; set; } = new List<NewsArticle>();
+        public ICollection<Category> SubCategories { get; set; }  // Các danh mục con
 
-    public virtual Category? ParentCategory { get; set; }
+        public ICollection<NewsArticle> NewsArticles { get; set; }  // Các bài viết thuộc danh mục này
+    }
 }

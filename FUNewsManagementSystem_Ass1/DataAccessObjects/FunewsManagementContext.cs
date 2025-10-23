@@ -1,135 +1,63 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.EntityFrameworkCore;
+using BusinessObjects;  // chứa các lớp entity
 
-namespace BusinessObjects;
-
-public partial class FunewsManagementContext : DbContext
+namespace DataAccessObjects
 {
-    public FunewsManagementContext()
+    public class FUNewsContext : DbContext
     {
-    }
+        // Constructor nhận tùy chọn để tích hợp DI
+        public FUNewsContext(DbContextOptions<FUNewsContext> options) : base(options) { }
 
-    public FunewsManagementContext(DbContextOptions<FunewsManagementContext> options)
-        : base(options)
-    {
-    }
-
-    public virtual DbSet<Category> Categories { get; set; }
-
-    public virtual DbSet<NewsArticle> NewsArticles { get; set; }
-
-    public virtual DbSet<SystemAccount> SystemAccounts { get; set; }
-
-    public virtual DbSet<Tag> Tags { get; set; }
-
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-=> optionsBuilder.UseSqlServer(GetConnectionString());
-
-    private string GetConnectionString()
-    {
-        IConfiguration configuration = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json", optional: true,
-                reloadOnChange: true).Build();
-        return configuration["ConnectionStrings:FUNewsManagement"];
-    }
-
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
-    {
-        modelBuilder.Entity<Category>(entity =>
+        // Nếu muốn dùng new FUNewsContext() trực tiếp (không DI), có thể override OnConfiguring:
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            entity.ToTable("Category");
+            if (!optionsBuilder.IsConfigured)
+            {
+                // Sử dụng chuỗi kết nối mặc định (phòng trường hợp không dùng DI)
+                optionsBuilder.UseSqlServer("Name=ConnectionStrings:FUNewsManagementDB");
+            }
+        }
 
-            entity.Property(e => e.CategoryId).HasColumnName("CategoryID");
-            entity.Property(e => e.CategoryDesciption).HasMaxLength(250);
-            entity.Property(e => e.CategoryName).HasMaxLength(100);
-            entity.Property(e => e.ParentCategoryId).HasColumnName("ParentCategoryID");
+        // DbSet cho từng bảng
+        public DbSet<SystemAccount> SystemAccounts { get; set; }
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<NewsArticle> NewsArticles { get; set; }
+        public DbSet<Tag> Tags { get; set; }
+        public DbSet<NewsTag> NewsTags { get; set; }
 
-            entity.HasOne(d => d.ParentCategory).WithMany(p => p.InverseParentCategory)
-                .HasForeignKey(d => d.ParentCategoryId)
-                .HasConstraintName("FK_Category_Category");
-        });
-
-        modelBuilder.Entity<NewsArticle>(entity =>
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            entity.ToTable("NewsArticle");
+            base.OnModelCreating(modelBuilder);
+            // Khóa chính phức hợp cho NewsTag (NewsArticleId + TagId)
+            modelBuilder.Entity<NewsTag>().HasKey(nt => new { nt.NewsArticleId, nt.TagId });
 
-            entity.Property(e => e.NewsArticleId)
-                .HasMaxLength(20)
-                .HasColumnName("NewsArticleID");
-            entity.Property(e => e.CategoryId).HasColumnName("CategoryID");
-            entity.Property(e => e.CreatedById).HasColumnName("CreatedByID");
-            entity.Property(e => e.CreatedDate).HasColumnType("datetime");
-            entity.Property(e => e.Headline).HasMaxLength(150);
-            entity.Property(e => e.ModifiedDate).HasColumnType("datetime");
-            entity.Property(e => e.NewsContent).HasMaxLength(4000);
-            entity.Property(e => e.NewsSource).HasMaxLength(400);
-            entity.Property(e => e.NewsTitle).HasMaxLength(400);
-            entity.Property(e => e.UpdatedById).HasColumnName("UpdatedByID");
+            // Quan hệ 1-n giữa Category và NewsArticle
+            modelBuilder.Entity<NewsArticle>()
+                .HasOne(c => c.Category)
+                .WithMany(n => n.NewsArticles)
+                .HasForeignKey(n => n.CategoryId)
+                .OnDelete(DeleteBehavior.Restrict); // Không cho xóa Category nếu có News
 
-            entity.HasOne(d => d.Category).WithMany(p => p.NewsArticles)
-                .HasForeignKey(d => d.CategoryId)
-                .OnDelete(DeleteBehavior.Cascade)
-                .HasConstraintName("FK_NewsArticle_Category");
+            // Quan hệ 1-n giữa SystemAccount và NewsArticle (CreatedBy)
+            modelBuilder.Entity<NewsArticle>()
+                .HasOne(a => a.CreatedBy)
+                .WithMany(u => u.CreatedNews)   // CreatedNews là ICollection<NewsArticle> trong SystemAccount
+                .HasForeignKey(n => n.CreatedById)
+                .OnDelete(DeleteBehavior.Restrict);
 
-            entity.HasOne(d => d.CreatedBy).WithMany(p => p.NewsArticles)
-                .HasForeignKey(d => d.CreatedById)
-                .OnDelete(DeleteBehavior.Cascade)
-                .HasConstraintName("FK_NewsArticle_SystemAccount");
+            // Quan hệ 1-n giữa SystemAccount và NewsArticle (UpdatedBy)
+            modelBuilder.Entity<NewsArticle>()
+                .HasOne(a => a.UpdatedBy)
+                .WithMany(u => u.UpdatedNews)   // UpdatedNews là ICollection<NewsArticle> trong SystemAccount
+                .HasForeignKey(n => n.UpdatedById)
+                .OnDelete(DeleteBehavior.Restrict);
 
-            entity.HasMany(d => d.Tags).WithMany(p => p.NewsArticles)
-                .UsingEntity<Dictionary<string, object>>(
-                    "NewsTag",
-                    r => r.HasOne<Tag>().WithMany()
-                        .HasForeignKey("TagId")
-                        .OnDelete(DeleteBehavior.ClientSetNull)
-                        .HasConstraintName("FK_NewsTag_Tag"),
-                    l => l.HasOne<NewsArticle>().WithMany()
-                        .HasForeignKey("NewsArticleId")
-                        .OnDelete(DeleteBehavior.ClientSetNull)
-                        .HasConstraintName("FK_NewsTag_NewsArticle"),
-                    j =>
-                    {
-                        j.HasKey("NewsArticleId", "TagId");
-                        j.ToTable("NewsTag");
-                        j.IndexerProperty<string>("NewsArticleId")
-                            .HasMaxLength(20)
-                            .HasColumnName("NewsArticleID");
-                        j.IndexerProperty<int>("TagId").HasColumnName("TagID");
-                    });
-        });
-
-        modelBuilder.Entity<SystemAccount>(entity =>
-        {
-            entity.HasKey(e => e.AccountId);
-
-            entity.ToTable("SystemAccount");
-
-            entity.Property(e => e.AccountId)
-                .ValueGeneratedNever()
-                .HasColumnName("AccountID");
-            entity.Property(e => e.AccountEmail).HasMaxLength(70);
-            entity.Property(e => e.AccountName).HasMaxLength(100);
-            entity.Property(e => e.AccountPassword).HasMaxLength(70);
-        });
-
-        modelBuilder.Entity<Tag>(entity =>
-        {
-            entity.HasKey(e => e.TagId).HasName("PK_HashTag");
-
-            entity.ToTable("Tag");
-
-            entity.Property(e => e.TagId)
-                .ValueGeneratedNever()
-                .HasColumnName("TagID");
-            entity.Property(e => e.Note).HasMaxLength(400);
-            entity.Property(e => e.TagName).HasMaxLength(50);
-        });
-
-        OnModelCreatingPartial(modelBuilder);
+            // Quan hệ tự tham chiếu Category (Parent-Child)
+            modelBuilder.Entity<Category>()
+                .HasOne(c => c.ParentCategory)
+                .WithMany(c => c.SubCategories)
+                .HasForeignKey(c => c.ParentCategoryId)
+                .OnDelete(DeleteBehavior.Restrict);
+        }
     }
-
-    partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
 }

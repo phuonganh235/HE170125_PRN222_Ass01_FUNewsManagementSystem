@@ -1,15 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
-namespace BusinessObjects;
-
-public partial class Tag
+namespace BusinessObjects
 {
-    public int TagId { get; set; }
+    public class Tag
+    {
+        [Key]
+        public int TagId { get; set; }
 
-    public string? TagName { get; set; }
+        [Required(ErrorMessage = "Tên thẻ không được để trống")]
+        [StringLength(100)]
+        public string TagName { get; set; }
 
-    public string? Note { get; set; }
+        [StringLength(255)]
+        public string Note { get; set; }
 
-    public virtual ICollection<NewsArticle> NewsArticles { get; set; } = new List<NewsArticle>();
+        public ICollection<NewsTag> NewsTags { get; set; }  // Danh sách bài viết gắn thẻ này
+    }
 }

@@ -1,19 +1,33 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
-namespace BusinessObjects;
-
-public partial class SystemAccount
+namespace BusinessObjects
 {
-    public short AccountId { get; set; }
+    public class SystemAccount
+    {
+        [Key]
+        public int AccountId { get; set; }
 
-    public string? AccountName { get; set; }
+        [Required(ErrorMessage = "Tên tài khoản không được trống")]
+        [StringLength(100)]
+        public string AccountName { get; set; }
 
-    public string? AccountEmail { get; set; }
+        [Required(ErrorMessage = "Email không được trống")]
+        [EmailAddress(ErrorMessage = "Email không hợp lệ")]
+        [StringLength(100)]
+        public string AccountEmail { get; set; }
 
-    public int? AccountRole { get; set; }
+        [Required(ErrorMessage = "Mật khẩu không được trống")]
+        [StringLength(100)]
+        public string AccountPassword { get; set; }
 
-    public string? AccountPassword { get; set; }
+        [Required]
+        [StringLength(20)]
+        public string AccountRole { get; set; }
 
-    public virtual ICollection<NewsArticle> NewsArticles { get; set; } = new List<NewsArticle>();
+        // Navigation properties:
+        public ICollection<NewsArticle> CreatedNews { get; set; }  // Các bài viết do tài khoản tạo
+        public ICollection<NewsArticle> UpdatedNews { get; set; }  // Các bài viết tài khoản cập nhật
+    }
 }
