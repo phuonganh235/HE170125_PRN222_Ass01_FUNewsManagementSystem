@@ -1,0 +1,16 @@
+﻿@model BusinessObjects.Category
+
+<form asp-action="DeleteConfirmed" method="post">
+    <input type="hidden" asp-for="CategoryID" />
+
+    <p>Bạn có chắc chắn muốn <strong>xóa</strong> danh mục sau?</p>
+    <ul>
+        <li><strong>Tên:</strong> @Model.CategoryName</li>
+        <li><strong>Mô tả:</strong> @Model.CategoryDesciption</li>
+    </ul>
+
+    <div class="text-end">
+        <button type="submit" class="btn btn-danger">Xóa</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+    </div>
+</form>

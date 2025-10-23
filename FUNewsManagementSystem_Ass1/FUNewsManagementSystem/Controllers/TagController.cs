@@ -1,99 +1,112 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using BusinessObjects;
 using Services;
+using BusinessObjects;
 using Microsoft.AspNetCore.Http;
 
 namespace FUNewsManagementSystem.Controllers
 {
     public class TagController : Controller
     {
-        private readonly ITagService tagService;
+        private readonly ITagService _tagService;
+        private readonly INewsTagService _newsTagService;
 
-        public TagController(ITagService _tagService)
+        public TagController(ITagService tagService, INewsTagService newsTagService)
         {
-            tagService = _tagService;
+            _tagService = tagService;
+            _newsTagService = newsTagService;
         }
 
-        public IActionResult Index()
+        private bool IsStaff()
         {
-            if (HttpContext.Session.GetString("UserRole") == null)
-                return RedirectToAction("Login", "Account");
-            var tags = tagService.GetAllTags();
-            return View(tags);
+            var role = HttpContext.Session.GetInt32("Role");
+            return role == 1;
         }
 
+        public IActionResult Index(string keyword = "")
+        {
+            if (!IsStaff()) return RedirectToAction("Login", "Auth");
+
+            var list = _tagService.Search(keyword);
+            ViewBag.Keyword = keyword;
+            return View(list);
+        }
+
+        [HttpGet]
         public IActionResult Create()
         {
-            if (HttpContext.Session.GetString("UserRole") == null)
-                return RedirectToAction("Login", "Account");
-            return View();
+            if (!IsStaff()) return RedirectToAction("Login", "Auth");
+            return PartialView("_CreateOrEdit", new Tag());
         }
 
         [HttpPost]
         public IActionResult Create(Tag tag)
         {
-            if (HttpContext.Session.GetString("UserRole") == null)
-                return RedirectToAction("Login", "Account");
-            if (ModelState.IsValid)
+            if (!IsStaff()) return RedirectToAction("Login", "Auth");
+
+            if (!ModelState.IsValid || _tagService.IsDuplicate(tag.TagName))
             {
-                bool success = tagService.CreateTag(tag, out string error);
-                if (success)
-                {
-                    TempData["Msg"] = "Đã thêm thẻ mới.";
-                    return RedirectToAction("Index");
-                }
-                else
-                {
-                    ModelState.AddModelError(string.Empty, error);
-                }
+                ModelState.AddModelError("TagName", "Tên thẻ đã tồn tại.");
+                return PartialView("_CreateOrEdit", tag);
             }
-            return View(tag);
+
+            _tagService.Add(tag);
+            return Json(new { success = true });
         }
 
+        [HttpGet]
         public IActionResult Edit(int id)
         {
-            if (HttpContext.Session.GetString("UserRole") == null)
-                return RedirectToAction("Login", "Account");
-            var tag = tagService.GetTag(id);
-            if (tag == null) return NotFound();
-            return View(tag);
+            if (!IsStaff()) return RedirectToAction("Login", "Auth");
+
+            var tag = _tagService.GetById(id);
+            return PartialView("_CreateOrEdit", tag);
         }
 
         [HttpPost]
         public IActionResult Edit(Tag tag)
         {
-            if (HttpContext.Session.GetString("UserRole") == null)
-                return RedirectToAction("Login", "Account");
-            if (ModelState.IsValid)
+            if (!IsStaff()) return RedirectToAction("Login", "Auth");
+
+            if (!ModelState.IsValid || _tagService.IsDuplicate(tag.TagName, tag.TagID))
             {
-                bool success = tagService.UpdateTag(tag, out string error);
-                if (success)
-                {
-                    TempData["Msg"] = "Đã cập nhật thẻ.";
-                    return RedirectToAction("Index");
-                }
-                else
-                {
-                    ModelState.AddModelError(string.Empty, error);
-                }
+                ModelState.AddModelError("TagName", "Tên thẻ đã tồn tại.");
+                return PartialView("_CreateOrEdit", tag);
             }
-            return View(tag);
+
+            _tagService.Update(tag);
+            return Json(new { success = true });
         }
 
+        [HttpGet]
         public IActionResult Delete(int id)
         {
-            if (HttpContext.Session.GetString("UserRole") == null)
-                return RedirectToAction("Login", "Account");
-            bool success = tagService.DeleteTag(id, out string error);
-            if (!success)
+            if (!IsStaff()) return RedirectToAction("Login", "Auth");
+
+            var tag = _tagService.GetById(id);
+            return PartialView("_DeleteConfirm", tag);
+        }
+
+        [HttpPost]
+        public IActionResult DeleteConfirmed(int id)
+        {
+            if (!IsStaff()) return RedirectToAction("Login", "Auth");
+
+            if (_newsTagService.HasTag(id))
             {
-                TempData["Error"] = error;
+                return Json(new { success = false, message = "Không thể xóa. Thẻ đang được sử dụng." });
             }
-            else
-            {
-                TempData["Msg"] = "Đã xóa thẻ.";
-            }
-            return RedirectToAction("Index");
+
+            _tagService.Delete(id);
+            return Json(new { success = true });
+        }
+
+        public IActionResult Details(int id)
+        {
+            if (!IsStaff()) return RedirectToAction("Login", "Auth");
+
+            var tag = _tagService.GetById(id);
+            ViewBag.UsedInArticles = _newsTagService.GetArticlesByTag(id);
+            return View(tag);
         }
     }
 }

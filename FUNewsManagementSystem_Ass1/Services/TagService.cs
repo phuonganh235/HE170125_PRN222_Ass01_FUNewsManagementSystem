@@ -1,70 +1,51 @@
-﻿// TagService.cs
-using System.Collections.Generic;
-using System.Linq;
-using BusinessObjects;
+﻿using BusinessObjects;
 using Repositories;
+using System.Collections.Generic;
 
 namespace Services
 {
     public class TagService : ITagService
     {
-        private readonly ITagRepository tagRepo;
-        private readonly INewsTagRepository newsTagRepo;
+        private readonly ITagRepository _tagRepository;
 
-        public TagService(ITagRepository _tagRepo, INewsTagRepository _newsTagRepo)
+        public TagService()
         {
-            tagRepo = _tagRepo;
-            newsTagRepo = _newsTagRepo;
+            _tagRepository = new TagRepository();
         }
 
-        public IEnumerable<Tag> GetAllTags()
+        public IEnumerable<Tag> GetAll()
         {
-            return tagRepo.GetAll();
+            return _tagRepository.GetAll();
         }
 
-        public Tag GetTag(int id)
+        public Tag GetById(int id)
         {
-            return tagRepo.GetById(id);
+            return _tagRepository.GetById(id);
         }
 
-        public bool CreateTag(Tag tag, out string error)
+        public void Add(Tag tag)
         {
-            error = string.Empty;
-            // Kiểm tra trùng tên tag
-            var exist = tagRepo.GetByName(tag.TagName);
-            if (exist != null)
-            {
-                error = "Tên thẻ đã tồn tại!";
-                return false;
-            }
-            tagRepo.Add(tag);
-            return true;
+            _tagRepository.Add(tag);
         }
 
-        public bool UpdateTag(Tag tag, out string error)
+        public void Update(Tag tag)
         {
-            error = string.Empty;
-            var exist = tagRepo.GetByName(tag.TagName);
-            if (exist != null && exist.TagId != tag.TagId)
-            {
-                error = "Tên thẻ đã tồn tại ở thẻ khác!";
-                return false;
-            }
-            tagRepo.Update(tag);
-            return true;
+            _tagRepository.Update(tag);
         }
 
-        public bool DeleteTag(int id, out string error)
+        public void Delete(int id)
         {
-            error = string.Empty;
-            // Không cho xóa nếu thẻ đang gắn với bài viết nào
-            if (newsTagRepo.IsTagUsed(id))
-            {
-                error = "Không thể xóa thẻ vì đang được sử dụng trong bài viết!";
-                return false;
-            }
-            tagRepo.Delete(id);
-            return true;
+            _tagRepository.Delete(id);
+        }
+
+        public IEnumerable<Tag> Search(string keyword)
+        {
+            return _tagRepository.Search(keyword);
+        }
+
+        public bool IsDuplicate(string tagName)
+        {
+            return _tagRepository.IsDuplicate(tagName);
         }
     }
 }

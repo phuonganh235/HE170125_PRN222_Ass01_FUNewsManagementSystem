@@ -1,0 +1,55 @@
+﻿@model BusinessObjects.Category
+
+<form asp-action="@ViewContext.RouteData.Values["action"]" method="post" id="categoryForm">
+    <div class="mb-3">
+        <label asp-for="CategoryName" class="form-label">Tên danh mục</label>
+        <input asp-for="CategoryName" class="form-control" />
+        <span asp-validation-for="CategoryName" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="CategoryDesciption" class="form-label">Mô tả</label>
+        <textarea asp-for="CategoryDesciption" class="form-control"></textarea>
+        <span asp-validation-for="CategoryDesciption" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="ParentCategoryID" class="form-label">Danh mục cha (nếu có)</label>
+        <select asp-for="ParentCategoryID" class="form-select"
+                asp-items="new SelectList(ViewBag.Categories, \" CategoryID\", \"CategoryName\")">
+            <option value="">-- Không có --</option>
+        </select>
+    </div>
+
+    <div class="mb-3 form-check">
+        <input asp-for="IsActive" class="form-check-input" />
+        <label asp-for="IsActive" class="form-check-label">Kích hoạt</label>
+    </div>
+
+    <div class="text-end">
+        <button type="submit" class="btn btn-primary">Lưu</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+    </div>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        $('#categoryForm').submit(function (e) {
+            e.preventDefault();
+            const form = $(this);
+            $.ajax({
+                type: 'POST',
+                url: form.attr('action'),
+                data: form.serialize(),
+                success: function (response) {
+                    if (response.success) {
+                        location.reload();
+                    } else {
+                        $('#modalCategory .modal-body').html(response);
+                    }
+                }
+            });
+        });
+    </script>
+}

@@ -1,15 +1,15 @@
-﻿// ICategoryService.cs
+﻿using BusinessObjects;
 using System.Collections.Generic;
-using BusinessObjects;
 
 namespace Services
 {
     public interface ICategoryService
     {
-        IEnumerable<Category> GetAllCategories(bool includeInactive = false);
-        Category GetCategory(int id);
-        bool CreateCategory(Category category, out string error);
-        bool UpdateCategory(Category category, out string error);
-        bool DeleteCategory(int id, out string error);
+        IEnumerable<Category> GetAll();
+        Category GetById(int id);
+        void Add(Category category);
+        void Update(Category category);
+        void Delete(int id);
+        IEnumerable<Category> Search(string keyword);
     }
 }

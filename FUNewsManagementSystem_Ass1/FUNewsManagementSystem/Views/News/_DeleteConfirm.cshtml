@@ -1,0 +1,16 @@
+﻿@model BusinessObjects.NewsArticle
+
+<form asp-action="DeleteConfirmed" method="post">
+    <input type="hidden" asp-for="NewsArticleID" />
+
+    <p>Bạn có chắc chắn muốn <strong>xóa</strong> bài viết sau?</p>
+    <ul>
+        <li><strong>Tiêu đề:</strong> @Model.NewsTitle</li>
+        <li><strong>Danh mục:</strong> @Model.Category?.CategoryName</li>
+    </ul>
+
+    <div class="text-end">
+        <button type="submit" class="btn btn-danger">Xóa</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+    </div>
+</form>

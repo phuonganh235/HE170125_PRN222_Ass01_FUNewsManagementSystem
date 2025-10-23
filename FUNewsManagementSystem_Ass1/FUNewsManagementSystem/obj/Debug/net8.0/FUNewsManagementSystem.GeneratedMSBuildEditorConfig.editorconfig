@@ -18,8 +18,36 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = D:\FALL25\PRN222\HE170125_PRN222_Ass01_FUNewsManagementSystem\FUNewsManagementSystem_Ass1\FUNewsManagementSystem
 build_property._RazorSourceGeneratorDebug = 
 
-[D:/FALL25/PRN222/HE170125_PRN222_Ass01_FUNewsManagementSystem/FUNewsManagementSystem_Ass1/FUNewsManagementSystem/Views/Details.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGV0YWlscy5jc2h0bWw=
+[D:/FALL25/PRN222/HE170125_PRN222_Ass01_FUNewsManagementSystem/FUNewsManagementSystem_Ass1/FUNewsManagementSystem/Views/Account/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxEZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/FALL25/PRN222/HE170125_PRN222_Ass01_FUNewsManagementSystem/FUNewsManagementSystem_Ass1/FUNewsManagementSystem/Views/Account/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/FALL25/PRN222/HE170125_PRN222_Ass01_FUNewsManagementSystem/FUNewsManagementSystem_Ass1/FUNewsManagementSystem/Views/Account/_CreateOrEdit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxfQ3JlYXRlT3JFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/FALL25/PRN222/HE170125_PRN222_Ass01_FUNewsManagementSystem/FUNewsManagementSystem_Ass1/FUNewsManagementSystem/Views/Account/_DeleteConfirm.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxfRGVsZXRlQ29uZmlybS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/FALL25/PRN222/HE170125_PRN222_Ass01_FUNewsManagementSystem/FUNewsManagementSystem_Ass1/FUNewsManagementSystem/Views/Category/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2F0ZWdvcnlcRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/FALL25/PRN222/HE170125_PRN222_Ass01_FUNewsManagementSystem/FUNewsManagementSystem_Ass1/FUNewsManagementSystem/Views/Category/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2F0ZWdvcnlcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/FALL25/PRN222/HE170125_PRN222_Ass01_FUNewsManagementSystem/FUNewsManagementSystem_Ass1/FUNewsManagementSystem/Views/Category/_CreateOrEdit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2F0ZWdvcnlcX0NyZWF0ZU9yRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/FALL25/PRN222/HE170125_PRN222_Ass01_FUNewsManagementSystem/FUNewsManagementSystem_Ass1/FUNewsManagementSystem/Views/Category/_DeleteConfirm.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2F0ZWdvcnlcX0RlbGV0ZUNvbmZpcm0uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/FALL25/PRN222/HE170125_PRN222_Ass01_FUNewsManagementSystem/FUNewsManagementSystem_Ass1/FUNewsManagementSystem/Views/Home/Index.cshtml]
@@ -30,8 +58,20 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/FALL25/PRN222/HE170125_PRN222_Ass01_FUNewsManagementSystem/FUNewsManagementSystem_Ass1/FUNewsManagementSystem/Views/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW5kZXguY3NodG1s
+[D:/FALL25/PRN222/HE170125_PRN222_Ass01_FUNewsManagementSystem/FUNewsManagementSystem_Ass1/FUNewsManagementSystem/Views/News/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTmV3c1xEZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/FALL25/PRN222/HE170125_PRN222_Ass01_FUNewsManagementSystem/FUNewsManagementSystem_Ass1/FUNewsManagementSystem/Views/News/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTmV3c1xJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/FALL25/PRN222/HE170125_PRN222_Ass01_FUNewsManagementSystem/FUNewsManagementSystem_Ass1/FUNewsManagementSystem/Views/News/_CreateOrEdit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTmV3c1xfQ3JlYXRlT3JFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/FALL25/PRN222/HE170125_PRN222_Ass01_FUNewsManagementSystem/FUNewsManagementSystem_Ass1/FUNewsManagementSystem/Views/News/_DeleteConfirm.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTmV3c1xfRGVsZXRlQ29uZmlybS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/FALL25/PRN222/HE170125_PRN222_Ass01_FUNewsManagementSystem/FUNewsManagementSystem_Ass1/FUNewsManagementSystem/Views/Shared/Error.cshtml]
@@ -42,12 +82,20 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/FALL25/PRN222/HE170125_PRN222_Ass01_FUNewsManagementSystem/FUNewsManagementSystem_Ass1/FUNewsManagementSystem/Views/_CreateOrEdit.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX0NyZWF0ZU9yRWRpdC5jc2h0bWw=
+[D:/FALL25/PRN222/HE170125_PRN222_Ass01_FUNewsManagementSystem/FUNewsManagementSystem_Ass1/FUNewsManagementSystem/Views/Tag/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFnXERldGFpbHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/FALL25/PRN222/HE170125_PRN222_Ass01_FUNewsManagementSystem/FUNewsManagementSystem_Ass1/FUNewsManagementSystem/Views/_DeleteConfirm.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX0RlbGV0ZUNvbmZpcm0uY3NodG1s
+[D:/FALL25/PRN222/HE170125_PRN222_Ass01_FUNewsManagementSystem/FUNewsManagementSystem_Ass1/FUNewsManagementSystem/Views/Tag/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFnXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/FALL25/PRN222/HE170125_PRN222_Ass01_FUNewsManagementSystem/FUNewsManagementSystem_Ass1/FUNewsManagementSystem/Views/Tag/_CreateOrEdit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFnXF9DcmVhdGVPckVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/FALL25/PRN222/HE170125_PRN222_Ass01_FUNewsManagementSystem/FUNewsManagementSystem_Ass1/FUNewsManagementSystem/Views/Tag/_DeleteConfirm.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFnXF9EZWxldGVDb25maXJtLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/FALL25/PRN222/HE170125_PRN222_Ass01_FUNewsManagementSystem/FUNewsManagementSystem_Ass1/FUNewsManagementSystem/Views/Shared/_Layout.cshtml]

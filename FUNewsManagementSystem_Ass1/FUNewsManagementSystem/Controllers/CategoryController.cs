@@ -1,110 +1,114 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using BusinessObjects;
 using Services;
+using BusinessObjects;
 using Microsoft.AspNetCore.Http;
 
 namespace FUNewsManagementSystem.Controllers
 {
     public class CategoryController : Controller
     {
-        private readonly ICategoryService categoryService;
+        private readonly ICategoryService _categoryService;
+        private readonly INewsService _newsService;
 
-        public CategoryController(ICategoryService _categoryService)
+        public CategoryController(ICategoryService categoryService, INewsService newsService)
         {
-            categoryService = _categoryService;
+            _categoryService = categoryService;
+            _newsService = newsService;
         }
 
-        // Danh sách danh mục
-        public IActionResult Index()
+        private bool IsStaff()
         {
-            // Yêu cầu đăng nhập (Admin hoặc Staff đều có thể nếu chính sách cho phép,
-            // giả sử cả Admin và Staff đều xem được danh mục)
-            if (HttpContext.Session.GetString("UserRole") == null)
-                return RedirectToAction("Login", "Account");
-            var categories = categoryService.GetAllCategories();
-            return View(categories);
+            var role = HttpContext.Session.GetInt32("Role");
+            return role == 1; // 1 = Staff
         }
 
-        // Form tạo mới danh mục
+        public IActionResult Index(string keyword = "")
+        {
+            if (!IsStaff()) return RedirectToAction("Login", "Auth");
+
+            var list = _categoryService.Search(keyword);
+            ViewBag.Keyword = keyword;
+            return View(list);
+        }
+
+        [HttpGet]
         public IActionResult Create()
         {
-            if (HttpContext.Session.GetString("UserRole") == null)
-                return RedirectToAction("Login", "Account");
-            // Có thể tải danh sách Category cha để chọn (loại trừ danh mục con)
-            ViewBag.ParentCategories = categoryService.GetAllCategories().Where(c => c.IsActive);
-            return View();
+            if (!IsStaff()) return RedirectToAction("Login", "Auth");
+
+            ViewBag.Categories = _categoryService.GetAll();
+            return PartialView("_CreateOrEdit", new Category());
         }
 
         [HttpPost]
         public IActionResult Create(Category category)
         {
-            if (HttpContext.Session.GetString("UserRole") == null)
-                return RedirectToAction("Login", "Account");
-            if (ModelState.IsValid)
+            if (!IsStaff()) return RedirectToAction("Login", "Auth");
+
+            if (!ModelState.IsValid)
             {
-                bool success = categoryService.CreateCategory(category, out string error);
-                if (success)
-                {
-                    TempData["Msg"] = "Đã tạo danh mục mới.";
-                    return RedirectToAction("Index");
-                }
-                else
-                {
-                    ModelState.AddModelError(string.Empty, error);
-                }
+                ViewBag.Categories = _categoryService.GetAll();
+                return PartialView("_CreateOrEdit", category);
             }
-            // Nạp lại danh sách ParentCategory cho dropdown nếu có lỗi
-            ViewBag.ParentCategories = categoryService.GetAllCategories().Where(c => c.IsActive);
-            return View(category);
+
+            _categoryService.Add(category);
+            return Json(new { success = true });
         }
 
+        [HttpGet]
         public IActionResult Edit(int id)
         {
-            if (HttpContext.Session.GetString("UserRole") == null)
-                return RedirectToAction("Login", "Account");
-            var category = categoryService.GetCategory(id);
-            if (category == null) return NotFound();
-            ViewBag.ParentCategories = categoryService.GetAllCategories().Where(c => c.IsActive && c.CategoryId != id);
-            return View(category);
+            if (!IsStaff()) return RedirectToAction("Login", "Auth");
+
+            var cat = _categoryService.GetById(id);
+            ViewBag.Categories = _categoryService.GetAll();
+            return PartialView("_CreateOrEdit", cat);
         }
 
         [HttpPost]
         public IActionResult Edit(Category category)
         {
-            if (HttpContext.Session.GetString("UserRole") == null)
-                return RedirectToAction("Login", "Account");
-            if (ModelState.IsValid)
+            if (!IsStaff()) return RedirectToAction("Login", "Auth");
+
+            if (!ModelState.IsValid)
             {
-                bool success = categoryService.UpdateCategory(category, out string error);
-                if (success)
-                {
-                    TempData["Msg"] = "Đã cập nhật danh mục.";
-                    return RedirectToAction("Index");
-                }
-                else
-                {
-                    ModelState.AddModelError(string.Empty, error);
-                }
+                ViewBag.Categories = _categoryService.GetAll();
+                return PartialView("_CreateOrEdit", category);
             }
-            // Nạp lại ParentCategories, tránh trường hợp dropdown bị trống do Postback
-            ViewBag.ParentCategories = categoryService.GetAllCategories().Where(c => c.IsActive && c.CategoryId != category.CategoryId);
-            return View(category);
+
+            _categoryService.Update(category);
+            return Json(new { success = true });
         }
 
+        [HttpGet]
         public IActionResult Delete(int id)
         {
-            if (HttpContext.Session.GetString("UserRole") == null)
-                return RedirectToAction("Login", "Account");
-            bool success = categoryService.DeleteCategory(id, out string error);
-            if (!success)
+            if (!IsStaff()) return RedirectToAction("Login", "Auth");
+
+            var cat = _categoryService.GetById(id);
+            return PartialView("_DeleteConfirm", cat);
+        }
+
+        [HttpPost]
+        public IActionResult DeleteConfirmed(int id)
+        {
+            if (!IsStaff()) return RedirectToAction("Login", "Auth");
+
+            if (_newsService.HasCategory(id))
             {
-                TempData["Error"] = error;
+                return Json(new { success = false, message = "Không thể xóa. Danh mục đã được sử dụng." });
             }
-            else
-            {
-                TempData["Msg"] = "Đã xóa danh mục.";
-            }
-            return RedirectToAction("Index");
+
+            _categoryService.Delete(id);
+            return Json(new { success = true });
+        }
+
+        public IActionResult Details(int id)
+        {
+            if (!IsStaff()) return RedirectToAction("Login", "Auth");
+
+            var cat = _categoryService.GetById(id);
+            return View(cat);
         }
     }
 }

@@ -1,0 +1,45 @@
+﻿@model BusinessObjects.NewsArticle
+@{
+    ViewBag.Title = "Chi tiết bài viết";
+}
+
+<h2 class="text-center">Chi tiết bài viết</h2>
+
+<div class="card mt-4 mx-auto" style="max-width: 800px;">
+    <div class="card-body">
+        <dl class="row">
+            <dt class="col-sm-4">Mã bài viết</dt>
+            <dd class="col-sm-8">@Model.NewsArticleID</dd>
+
+            <dt class="col-sm-4">Tiêu đề</dt>
+            <dd class="col-sm-8">@Model.NewsTitle</dd>
+
+            <dt class="col-sm-4">Tiêu đề phụ</dt>
+            <dd class="col-sm-8">@Model.Headline</dd>
+
+            <dt class="col-sm-4">Nội dung</dt>
+            <dd class="col-sm-8 white-space-pre-line">@Model.NewsContent</dd>
+
+            <dt class="col-sm-4">Danh mục</dt>
+            <dd class="col-sm-8">@Model.Category?.CategoryName</dd>
+
+            <dt class="col-sm-4">Nguồn tin</dt>
+            <dd class="col-sm-8">@Model.NewsSource</dd>
+
+            <dt class="col-sm-4">Ngày tạo</dt>
+            <dd class="col-sm-8">@Model.CreatedDate?.ToString("dd/MM/yyyy HH:mm")</dd>
+
+            <dt class="col-sm-4">Ngày cập nhật</dt>
+            <dd class="col-sm-8">@Model.ModifiedDate?.ToString("dd/MM/yyyy HH:mm")</dd>
+
+            <dt class="col-sm-4">Trạng thái</dt>
+            <dd class="col-sm-8">
+                @(Model.NewsStatus == true ? "Hoạt động" : "Ẩn")
+            </dd>
+        </dl>
+    </div>
+</div>
+
+<div class="text-center mt-3">
+    <a asp-action="Index" class="btn btn-secondary">Quay lại danh sách</a>
+</div>

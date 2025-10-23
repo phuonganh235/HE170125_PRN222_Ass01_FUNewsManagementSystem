@@ -1,126 +1,56 @@
-﻿// NewsService.cs
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using BusinessObjects;
+﻿using BusinessObjects;
 using Repositories;
+using System.Collections.Generic;
 
 namespace Services
 {
     public class NewsService : INewsService
     {
-        private readonly INewsRepository newsRepo;
-        private readonly INewsTagRepository newsTagRepo;
+        private readonly INewsRepository _newsRepository;
 
-        public NewsService(INewsRepository _newsRepo, INewsTagRepository _newsTagRepo)
+        public NewsService()
         {
-            newsRepo = _newsRepo;
-            newsTagRepo = _newsTagRepo;
+            _newsRepository = new NewsRepository();
         }
 
-        public IEnumerable<NewsArticle> GetAllNews(string statusFilter = null)
+        public IEnumerable<NewsArticle> GetAll()
         {
-            var all = newsRepo.GetAll();
-            if (!string.IsNullOrEmpty(statusFilter))
-            {
-                all = all.Where(n => n.NewsStatus.Equals(statusFilter, StringComparison.OrdinalIgnoreCase));
-            }
-            // Có thể sắp xếp bài viết theo ngày tạo hoặc tiêu đề nếu cần:
-            return all.OrderByDescending(n => n.CreatedDate);
+            return _newsRepository.GetAll();
         }
 
-        public NewsArticle GetNews(int id)
+        public NewsArticle GetById(string newsId)
         {
-            return newsRepo.GetById(id);
+            return _newsRepository.GetById(newsId);
         }
 
-        public bool CreateNews(NewsArticle news, List<int> tagIds, out string error)
+        public void Add(NewsArticle article)
         {
-            error = string.Empty;
-            // Thiết lập thông tin mặc định cho bài viết mới
-            news.CreatedDate = DateTime.Now;
-            news.ModifiedDate = null;
-            news.NewsStatus = string.IsNullOrEmpty(news.NewsStatus) ? "Draft" : news.NewsStatus;
-            // Lưu bài viết
-            newsRepo.Add(news);
-            // Lưu các tag liên quan
-            if (tagIds != null)
-            {
-                foreach (int tagId in tagIds)
-                {
-                    newsTagRepo.AddTagToNews(news.NewsArticleId, tagId);
-                }
-            }
-            return true;
+            _newsRepository.Add(article);
         }
 
-        public bool UpdateNews(NewsArticle news, List<int> tagIds, out string error)
+        public void Update(NewsArticle article)
         {
-            error = string.Empty;
-            // Cập nhật trường ModifiedDate và UpdatedById (giả sử đã thiết lập UpdatedById bên ngoài trước khi gọi)
-            news.ModifiedDate = DateTime.Now;
-            // Cập nhật thông tin bài viết
-            newsRepo.Update(news);
-            // Cập nhật lại tag: Xóa hết tag cũ rồi thêm tag mới
-            if (tagIds != null)
-            {
-                newsTagRepo.RemoveByNews(news.NewsArticleId);
-                foreach (int tagId in tagIds)
-                {
-                    newsTagRepo.AddTagToNews(news.NewsArticleId, tagId);
-                }
-            }
-            return true;
+            _newsRepository.Update(article);
         }
 
-        public bool DeleteNews(int id, out string error)
+        public void Delete(string newsId)
         {
-            error = string.Empty;
-            // Xóa liên kết tag trước (để đảm bảo không còn phụ thuộc khóa ngoại)
-            newsTagRepo.RemoveByNews(id);
-            // Xóa bài viết
-            newsRepo.Delete(id);
-            return true;
+            _newsRepository.Delete(newsId);
         }
 
-        // Đếm số bài viết theo Category
-        public Dictionary<Category, int> CountByCategory()
+        public bool HasCategory(short categoryId)
         {
-            var result = new Dictionary<Category, int>();
-            // Lấy tất cả bài viết và nhóm theo Category
-            var allNews = newsRepo.GetAll();
-            var group = allNews.GroupBy(n => n.Category);
-            foreach (var g in group)
-            {
-                result[g.Key] = g.Count();
-            }
-            return result;
+            return _newsRepository.HasCategory(categoryId);
         }
 
-        // Đếm số bài viết theo Status
-        public Dictionary<string, int> CountByStatus()
+        public IEnumerable<NewsArticle> SearchByStaff(string keyword, int staffId)
         {
-            var result = new Dictionary<string, int>();
-            var allNews = newsRepo.GetAll();
-            var group = allNews.GroupBy(n => n.NewsStatus);
-            foreach (var g in group)
-            {
-                result[g.Key] = g.Count();
-            }
-            return result;
+            return _newsRepository.SearchByStaff(keyword, staffId);
         }
 
-        // Đếm số bài viết theo tác giả (CreatedBy)
-        public Dictionary<SystemAccount, int> CountByAuthor()
+        public NewsArticle Duplicate(string newsId)
         {
-            var result = new Dictionary<SystemAccount, int>();
-            var allNews = newsRepo.GetAll();
-            var group = allNews.GroupBy(n => n.CreatedBy);
-            foreach (var g in group)
-            {
-                result[g.Key] = g.Count();
-            }
-            return result;
+            return _newsRepository.Duplicate(newsId);
         }
     }
 }

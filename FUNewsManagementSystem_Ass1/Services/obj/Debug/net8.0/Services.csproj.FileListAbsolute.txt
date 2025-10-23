@@ -11,3 +11,10 @@ D:\FALL25\PRN222\HE170125_PRN222_Ass01_FUNewsManagementSystem\FUNewsManagementSy
 D:\FALL25\PRN222\HE170125_PRN222_Ass01_FUNewsManagementSystem\FUNewsManagementSystem_Ass1\Services\obj\Debug\net8.0\ref\Services.dll
 D:\FALL25\PRN222\HE170125_PRN222_Ass01_FUNewsManagementSystem\FUNewsManagementSystem_Ass1\Services\obj\Debug\net8.0\Services.csproj.AssemblyReference.cache
 D:\FALL25\PRN222\HE170125_PRN222_Ass01_FUNewsManagementSystem\FUNewsManagementSystem_Ass1\Services\obj\Debug\net8.0\Services.sourcelink.json
+D:\FALL25\PRN222\HE170125_PRN222_Ass01_FUNewsManagementSystem\FUNewsManagementSystem_Ass1\Services\bin\Debug\net8.0\BusinessObjects.dll
+D:\FALL25\PRN222\HE170125_PRN222_Ass01_FUNewsManagementSystem\FUNewsManagementSystem_Ass1\Services\bin\Debug\net8.0\DataAccessObjects.dll
+D:\FALL25\PRN222\HE170125_PRN222_Ass01_FUNewsManagementSystem\FUNewsManagementSystem_Ass1\Services\bin\Debug\net8.0\Repositories.dll
+D:\FALL25\PRN222\HE170125_PRN222_Ass01_FUNewsManagementSystem\FUNewsManagementSystem_Ass1\Services\bin\Debug\net8.0\BusinessObjects.pdb
+D:\FALL25\PRN222\HE170125_PRN222_Ass01_FUNewsManagementSystem\FUNewsManagementSystem_Ass1\Services\bin\Debug\net8.0\Repositories.pdb
+D:\FALL25\PRN222\HE170125_PRN222_Ass01_FUNewsManagementSystem\FUNewsManagementSystem_Ass1\Services\bin\Debug\net8.0\DataAccessObjects.pdb
+D:\FALL25\PRN222\HE170125_PRN222_Ass01_FUNewsManagementSystem\FUNewsManagementSystem_Ass1\Services\obj\Debug\net8.0\Services.csproj.Up2Date

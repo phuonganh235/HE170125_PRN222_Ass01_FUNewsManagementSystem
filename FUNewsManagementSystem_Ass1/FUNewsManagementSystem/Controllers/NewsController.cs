@@ -1,144 +1,144 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using BusinessObjects;
 using Services;
+using BusinessObjects;
 using Microsoft.AspNetCore.Http;
-using System;
-using System.Collections.Generic;
 
 namespace FUNewsManagementSystem.Controllers
 {
     public class NewsController : Controller
     {
-        private readonly INewsService newsService;
-        private readonly ICategoryService categoryService;
-        private readonly ITagService tagService;
+        private readonly INewsService _newsService;
+        private readonly ICategoryService _categoryService;
+        private readonly ITagService _tagService;
+        private readonly INewsTagService _newsTagService;
 
-        public NewsController(INewsService _newsService, ICategoryService _categoryService, ITagService _tagService)
+        public NewsController(INewsService newsService,
+                              ICategoryService categoryService,
+                              ITagService tagService,
+                              INewsTagService newsTagService)
         {
-            newsService = _newsService;
-            categoryService = _categoryService;
-            tagService = _tagService;
+            _newsService = newsService;
+            _categoryService = categoryService;
+            _tagService = tagService;
+            _newsTagService = newsTagService;
         }
 
-        // Danh sách bài viết (có thể thêm filter theo status hoặc category)
-        public IActionResult Index(string status)
+        private int GetUserId()
         {
-            if (HttpContext.Session.GetString("UserRole") == null)
-                return RedirectToAction("Login", "Account");
-            IEnumerable<NewsArticle> newsList;
-            if (!string.IsNullOrEmpty(status))
-            {
-                newsList = newsService.GetAllNews(status);
-            }
-            else
-            {
-                newsList = newsService.GetAllNews();
-            }
-            return View(newsList);
+            return HttpContext.Session.GetInt32("UserId") ?? 0;
         }
 
-        // Form tạo bài viết
+        private bool IsStaff()
+        {
+            var role = HttpContext.Session.GetInt32("Role");
+            return role == 1;
+        }
+
+        public IActionResult Index(string keyword = "", int? categoryId = null, int? status = null)
+        {
+            if (!IsStaff()) return RedirectToAction("Login", "Auth");
+
+            var list = _newsService.SearchByStaff(GetUserId(), keyword, categoryId, status);
+            ViewBag.Categories = _categoryService.GetAll();
+            ViewBag.Keyword = keyword;
+            ViewBag.Status = status;
+            ViewBag.CategoryId = categoryId;
+
+            return View(list);
+        }
+
+        [HttpGet]
         public IActionResult Create()
         {
-            if (HttpContext.Session.GetString("UserRole") == null)
-                return RedirectToAction("Login", "Account");
-            // Lấy danh sách Category & Tag cho view
-            ViewBag.Categories = categoryService.GetAllCategories().Where(c => c.IsActive);
-            ViewBag.Tags = tagService.GetAllTags();
-            return View();
+            if (!IsStaff()) return RedirectToAction("Login", "Auth");
+
+            ViewBag.Categories = _categoryService.GetAll();
+            ViewBag.AllTags = _tagService.GetAll();
+            return PartialView("_CreateOrEdit", new NewsArticle());
         }
 
         [HttpPost]
-        public IActionResult Create(NewsArticle news, List<int> tagIds)
+        public IActionResult Create(NewsArticle article, int[] tagIds)
         {
-            if (HttpContext.Session.GetString("UserRole") == null)
-                return RedirectToAction("Login", "Account");
-            // Gán thông tin người tạo
-            news.CreatedById = HttpContext.Session.GetInt32("UserId") ?? 0;
-            news.UpdatedById = null;
-            if (ModelState.IsValid)
+            if (!IsStaff()) return RedirectToAction("Login", "Auth");
+
+            if (!ModelState.IsValid)
             {
-                bool success = newsService.CreateNews(news, tagIds, out string error);
-                if (success)
-                {
-                    TempData["Msg"] = "Đã tạo bài viết mới.";
-                    return RedirectToAction("Index");
-                }
-                else
-                {
-                    ModelState.AddModelError(string.Empty, error);
-                }
+                ViewBag.Categories = _categoryService.GetAll();
+                ViewBag.AllTags = _tagService.GetAll();
+                return PartialView("_CreateOrEdit", article);
             }
-            // Nếu có lỗi, cần nạp lại danh sách Category, Tag để hiển thị lại form
-            ViewBag.Categories = categoryService.GetAllCategories().Where(c => c.IsActive);
-            ViewBag.Tags = tagService.GetAllTags();
-            return View(news);
+
+            article.CreatedById = GetUserId();
+            article.CreatedDate = DateTime.Now;
+            _newsService.Add(article, tagIds);
+            return Json(new { success = true });
         }
 
-        public IActionResult Edit(int id)
+        [HttpGet]
+        public IActionResult Edit(string id)
         {
-            if (HttpContext.Session.GetString("UserRole") == null)
-                return RedirectToAction("Login", "Account");
-            var article = newsService.GetNews(id);
+            if (!IsStaff()) return RedirectToAction("Login", "Auth");
+
+            var article = _newsService.GetById(id);
             if (article == null) return NotFound();
-            ViewBag.Categories = categoryService.GetAllCategories().Where(c => c.IsActive);
-            ViewBag.Tags = tagService.GetAllTags();
-            // Lấy danh sách tagId của bài viết để gửi sang view (đánh dấu checkbox)
-            var currentTags = new List<int>();
-            foreach (var nt in article.NewsTags)
+
+            ViewBag.Categories = _categoryService.GetAll();
+            ViewBag.AllTags = _tagService.GetAll();
+            ViewBag.SelectedTags = _newsTagService.GetTagIdsForNews(id);
+
+            return PartialView("_CreateOrEdit", article);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(NewsArticle article, int[] tagIds)
+        {
+            if (!IsStaff()) return RedirectToAction("Login", "Auth");
+
+            if (!ModelState.IsValid)
             {
-                currentTags.Add(nt.TagId);
+                ViewBag.Categories = _categoryService.GetAll();
+                ViewBag.AllTags = _tagService.GetAll();
+                return PartialView("_CreateOrEdit", article);
             }
-            ViewBag.CurrentTagIds = currentTags;
+
+            article.UpdatedById = GetUserId();
+            article.ModifiedDate = DateTime.Now;
+            _newsService.Update(article, tagIds);
+            return Json(new { success = true });
+        }
+
+        [HttpGet]
+        public IActionResult Delete(string id)
+        {
+            if (!IsStaff()) return RedirectToAction("Login", "Auth");
+
+            var article = _newsService.GetById(id);
+            return PartialView("_DeleteConfirm", article);
+        }
+
+        [HttpPost]
+        public IActionResult DeleteConfirmed(string id)
+        {
+            if (!IsStaff()) return RedirectToAction("Login", "Auth");
+
+            _newsService.Delete(id);
+            return Json(new { success = true });
+        }
+
+        public IActionResult Details(string id)
+        {
+            if (!IsStaff()) return RedirectToAction("Login", "Auth");
+
+            var article = _newsService.GetById(id);
             return View(article);
         }
 
-        [HttpPost]
-        public IActionResult Edit(NewsArticle news, List<int> tagIds)
+        public IActionResult Duplicate(string id)
         {
-            if (HttpContext.Session.GetString("UserRole") == null)
-                return RedirectToAction("Login", "Account");
-            // Giữ CreatedById & CreatedDate cũ
-            // Khi model binding, nếu NewsArticle có CreatedDate không được gửi từ form, nó sẽ là default -> cần giữ thủ công
-            var existing = newsService.GetNews(news.NewsArticleId);
-            if (existing == null) return NotFound();
-            news.CreatedById = existing.CreatedById;
-            news.CreatedDate = existing.CreatedDate;
-            // Gán người cập nhật
-            news.UpdatedById = HttpContext.Session.GetInt32("UserId");
-            if (ModelState.IsValid)
-            {
-                bool success = newsService.UpdateNews(news, tagIds, out string error);
-                if (success)
-                {
-                    TempData["Msg"] = "Đã cập nhật bài viết.";
-                    return RedirectToAction("Index");
-                }
-                else
-                {
-                    ModelState.AddModelError(string.Empty, error);
-                }
-            }
-            // Nạp lại dropdown và checklist
-            ViewBag.Categories = categoryService.GetAllCategories().Where(c => c.IsActive);
-            ViewBag.Tags = tagService.GetAllTags();
-            ViewBag.CurrentTagIds = tagIds;
-            return View(news);
-        }
+            if (!IsStaff()) return RedirectToAction("Login", "Auth");
 
-        public IActionResult Delete(int id)
-        {
-            if (HttpContext.Session.GetString("UserRole") == null)
-                return RedirectToAction("Login", "Account");
-            bool success = newsService.DeleteNews(id, out string error);
-            if (!success)
-            {
-                TempData["Error"] = error;
-            }
-            else
-            {
-                TempData["Msg"] = "Đã xóa bài viết.";
-            }
+            _newsService.Duplicate(id, GetUserId());
             return RedirectToAction("Index");
         }
     }

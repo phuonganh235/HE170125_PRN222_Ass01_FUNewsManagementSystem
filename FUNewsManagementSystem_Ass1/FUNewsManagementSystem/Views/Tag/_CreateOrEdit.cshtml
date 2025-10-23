@@ -1,0 +1,41 @@
+﻿@model BusinessObjects.Tag
+
+<form asp-action="@ViewContext.RouteData.Values["action"]" method="post" id="tagForm">
+    <div class="mb-3">
+        <label asp-for="TagName" class="form-label">Tên thẻ</label>
+        <input asp-for="TagName" class="form-control" />
+        <span asp-validation-for="TagName" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Note" class="form-label">Ghi chú</label>
+        <textarea asp-for="Note" class="form-control"></textarea>
+    </div>
+
+    <div class="text-end">
+        <button type="submit" class="btn btn-primary">Lưu</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+    </div>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        $('#tagForm').submit(function (e) {
+            e.preventDefault();
+            const form = $(this);
+            $.ajax({
+                type: 'POST',
+                url: form.attr('action'),
+                data: form.serialize(),
+                success: function (response) {
+                    if (response.success) {
+                        location.reload();
+                    } else {
+                        $('#modalTag .modal-body').html(response);
+                    }
+                }
+            });
+        });
+    </script>
+}

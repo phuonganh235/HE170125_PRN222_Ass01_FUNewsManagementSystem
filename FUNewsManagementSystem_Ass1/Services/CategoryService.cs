@@ -1,87 +1,46 @@
-﻿// CategoryService.cs
-using System.Collections.Generic;
-using System.Linq;
-using BusinessObjects;
+﻿using BusinessObjects;
 using Repositories;
+using System.Collections.Generic;
 
 namespace Services
 {
     public class CategoryService : ICategoryService
     {
-        private readonly ICategoryRepository categoryRepo;
-        private readonly INewsRepository newsRepo;
+        private readonly ICategoryRepository _categoryRepository;
 
-        public CategoryService(ICategoryRepository _categoryRepo, INewsRepository _newsRepo)
+        public CategoryService()
         {
-            categoryRepo = _categoryRepo;
-            newsRepo = _newsRepo;
+            _categoryRepository = new CategoryRepository();
         }
 
-        public IEnumerable<Category> GetAllCategories(bool includeInactive = false)
+        public IEnumerable<Category> GetAll()
         {
-            var all = categoryRepo.GetAll();
-            if (!includeInactive)
-            {
-                // Chỉ lấy các category đang hoạt động nếu cần
-                all = all.Where(c => c.IsActive);
-            }
-            // Có thể sort theo tên nếu muốn
-            return all;
+            return _categoryRepository.GetAll();
         }
 
-        public Category GetCategory(int id)
+        public Category GetById(int id)
         {
-            return categoryRepo.GetById(id);
+            return _categoryRepository.GetById(id);
         }
 
-        public bool CreateCategory(Category category, out string error)
+        public void Add(Category category)
         {
-            error = string.Empty;
-            // Kiểm tra trùng tên danh mục (không phân biệt hoa thường)
-            var all = categoryRepo.GetAll();
-            if (all.Any(c => c.CategoryName.ToLower() == category.CategoryName.ToLower()))
-            {
-                error = "Tên danh mục đã tồn tại!";
-                return false;
-            }
-            // Nếu có parentId, kiểm tra parent có tồn tại và đang active không (có thể bổ sung nếu cần)
-            categoryRepo.Add(category);
-            return true;
+            _categoryRepository.Add(category);
         }
 
-        public bool UpdateCategory(Category category, out string error)
+        public void Update(Category category)
         {
-            error = string.Empty;
-            // Kiểm tra trùng tên (cho trường hợp đổi tên)
-            var all = categoryRepo.GetAll();
-            if (all.Any(c => c.CategoryName.ToLower() == category.CategoryName.ToLower() && c.CategoryId != category.CategoryId))
-            {
-                error = "Tên danh mục đã tồn tại ở danh mục khác!";
-                return false;
-            }
-            categoryRepo.Update(category);
-            return true;
+            _categoryRepository.Update(category);
         }
 
-        public bool DeleteCategory(int id, out string error)
+        public void Delete(int id)
         {
-            error = string.Empty;
-            // Không cho xóa nếu có danh mục con
-            var all = categoryRepo.GetAll();
-            if (all.Any(c => c.ParentCategoryId == id))
-            {
-                error = "Không thể xóa vì còn danh mục con phụ thuộc!";
-                return false;
-            }
-            // Không cho xóa nếu có bài viết thuộc danh mục
-            var newsList = newsRepo.GetByCategory(id);
-            if (newsList != null && newsList.Any())
-            {
-                error = "Không thể xóa vì danh mục đang được sử dụng cho các bài viết!";
-                return false;
-            }
-            categoryRepo.Delete(id);
-            return true;
+            _categoryRepository.Delete(id);
+        }
+
+        public IEnumerable<Category> Search(string keyword)
+        {
+            return _categoryRepository.Search(keyword);
         }
     }
 }
