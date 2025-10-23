@@ -9,3 +9,5 @@ D:\FALL25\PRN222\HE170125_PRN222_Ass01_FUNewsManagementSystem\FUNewsManagementSy
 D:\FALL25\PRN222\HE170125_PRN222_Ass01_FUNewsManagementSystem\FUNewsManagementSystem_Ass1\Repositories\obj\Debug\net8.0\refint\Repositories.dll
 D:\FALL25\PRN222\HE170125_PRN222_Ass01_FUNewsManagementSystem\FUNewsManagementSystem_Ass1\Repositories\obj\Debug\net8.0\Repositories.pdb
 D:\FALL25\PRN222\HE170125_PRN222_Ass01_FUNewsManagementSystem\FUNewsManagementSystem_Ass1\Repositories\obj\Debug\net8.0\ref\Repositories.dll
+D:\FALL25\PRN222\HE170125_PRN222_Ass01_FUNewsManagementSystem\FUNewsManagementSystem_Ass1\Repositories\obj\Debug\net8.0\Repositories.csproj.AssemblyReference.cache
+D:\FALL25\PRN222\HE170125_PRN222_Ass01_FUNewsManagementSystem\FUNewsManagementSystem_Ass1\Repositories\obj\Debug\net8.0\Repositories.sourcelink.json

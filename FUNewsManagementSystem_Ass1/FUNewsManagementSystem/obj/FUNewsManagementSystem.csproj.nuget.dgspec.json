@@ -258,6 +258,9 @@
             "projectReferences": {
               "D:\\FALL25\\PRN222\\HE170125_PRN222_Ass01_FUNewsManagementSystem\\FUNewsManagementSystem_Ass1\\BusinessObjects\\BusinessObjects.csproj": {
                 "projectPath": "D:\\FALL25\\PRN222\\HE170125_PRN222_Ass01_FUNewsManagementSystem\\FUNewsManagementSystem_Ass1\\BusinessObjects\\BusinessObjects.csproj"
+              },
+              "D:\\FALL25\\PRN222\\HE170125_PRN222_Ass01_FUNewsManagementSystem\\FUNewsManagementSystem_Ass1\\DataAccessObjects\\DataAccessObjects.csproj": {
+                "projectPath": "D:\\FALL25\\PRN222\\HE170125_PRN222_Ass01_FUNewsManagementSystem\\FUNewsManagementSystem_Ass1\\DataAccessObjects\\DataAccessObjects.csproj"
               }
             }
           }
