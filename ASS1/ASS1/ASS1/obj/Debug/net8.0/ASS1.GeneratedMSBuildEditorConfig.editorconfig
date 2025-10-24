@@ -1,0 +1,211 @@
+is_global = true
+build_property.TargetFramework = net8.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = ASS1
+build_property.RootNamespace = ASS1
+build_property.ProjectDir = D:\FALL25\PRN222\ASS1\ASS1\ASS1\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 
+build_property.RazorLangVersion = 8.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = D:\FALL25\PRN222\ASS1\ASS1\ASS1
+build_property._RazorSourceGeneratorDebug = 
+
+[D:/FALL25/PRN222/ASS1/ASS1/ASS1/Views/AccountManagement/ChangePassword.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudE1hbmFnZW1lbnRcQ2hhbmdlUGFzc3dvcmQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/FALL25/PRN222/ASS1/ASS1/ASS1/Views/AccountManagement/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudE1hbmFnZW1lbnRcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/FALL25/PRN222/ASS1/ASS1/ASS1/Views/AccountManagement/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudE1hbmFnZW1lbnRcRGVsZXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/FALL25/PRN222/ASS1/ASS1/ASS1/Views/AccountManagement/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudE1hbmFnZW1lbnRcRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/FALL25/PRN222/ASS1/ASS1/ASS1/Views/AccountManagement/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudE1hbmFnZW1lbnRcRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/FALL25/PRN222/ASS1/ASS1/ASS1/Views/AccountManagement/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudE1hbmFnZW1lbnRcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/FALL25/PRN222/ASS1/ASS1/ASS1/Views/Account/AccessDenied.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxBY2Nlc3NEZW5pZWQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/FALL25/PRN222/ASS1/ASS1/ASS1/Views/Account/Login.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxMb2dpbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/FALL25/PRN222/ASS1/ASS1/ASS1/Views/Account/Profile.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxQcm9maWxlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/FALL25/PRN222/ASS1/ASS1/ASS1/Views/Account/TestAdminConfig.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxUZXN0QWRtaW5Db25maWcuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/FALL25/PRN222/ASS1/ASS1/ASS1/Views/Admin/CheckAdmin.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cQ2hlY2tBZG1pbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/FALL25/PRN222/ASS1/ASS1/ASS1/Views/Admin/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/FALL25/PRN222/ASS1/ASS1/ASS1/Views/Admin/TestLogin.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cVGVzdExvZ2luLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/FALL25/PRN222/ASS1/ASS1/ASS1/Views/Audit/ByEditor.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXVkaXRcQnlFZGl0b3IuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/FALL25/PRN222/ASS1/ASS1/ASS1/Views/Audit/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXVkaXRcRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/FALL25/PRN222/ASS1/ASS1/ASS1/Views/Audit/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXVkaXRcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/FALL25/PRN222/ASS1/ASS1/ASS1/Views/Audit/RecentChanges.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXVkaXRcUmVjZW50Q2hhbmdlcy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/FALL25/PRN222/ASS1/ASS1/ASS1/Views/CategoryManagement/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2F0ZWdvcnlNYW5hZ2VtZW50XENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/FALL25/PRN222/ASS1/ASS1/ASS1/Views/CategoryManagement/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2F0ZWdvcnlNYW5hZ2VtZW50XERlbGV0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/FALL25/PRN222/ASS1/ASS1/ASS1/Views/CategoryManagement/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2F0ZWdvcnlNYW5hZ2VtZW50XERldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/FALL25/PRN222/ASS1/ASS1/ASS1/Views/CategoryManagement/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2F0ZWdvcnlNYW5hZ2VtZW50XEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/FALL25/PRN222/ASS1/ASS1/ASS1/Views/CategoryManagement/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2F0ZWdvcnlNYW5hZ2VtZW50XEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/FALL25/PRN222/ASS1/ASS1/ASS1/Views/Home/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/FALL25/PRN222/ASS1/ASS1/ASS1/Views/Home/Privacy.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/FALL25/PRN222/ASS1/ASS1/ASS1/Views/NewsArticleManagement/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTmV3c0FydGljbGVNYW5hZ2VtZW50XENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/FALL25/PRN222/ASS1/ASS1/ASS1/Views/NewsArticleManagement/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTmV3c0FydGljbGVNYW5hZ2VtZW50XERlbGV0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/FALL25/PRN222/ASS1/ASS1/ASS1/Views/NewsArticleManagement/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTmV3c0FydGljbGVNYW5hZ2VtZW50XERldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/FALL25/PRN222/ASS1/ASS1/ASS1/Views/NewsArticleManagement/Duplicate.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTmV3c0FydGljbGVNYW5hZ2VtZW50XER1cGxpY2F0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/FALL25/PRN222/ASS1/ASS1/ASS1/Views/NewsArticleManagement/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTmV3c0FydGljbGVNYW5hZ2VtZW50XEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/FALL25/PRN222/ASS1/ASS1/ASS1/Views/NewsArticleManagement/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTmV3c0FydGljbGVNYW5hZ2VtZW50XEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/FALL25/PRN222/ASS1/ASS1/ASS1/Views/NewsTagLink/Manage.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTmV3c1RhZ0xpbmtcTWFuYWdlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/FALL25/PRN222/ASS1/ASS1/ASS1/Views/News/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTmV3c1xEZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/FALL25/PRN222/ASS1/ASS1/ASS1/Views/News/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTmV3c1xJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/FALL25/PRN222/ASS1/ASS1/ASS1/Views/Reporting/AuthorReport.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVwb3J0aW5nXEF1dGhvclJlcG9ydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/FALL25/PRN222/ASS1/ASS1/ASS1/Views/Reporting/CategoryReport.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVwb3J0aW5nXENhdGVnb3J5UmVwb3J0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/FALL25/PRN222/ASS1/ASS1/ASS1/Views/Reporting/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVwb3J0aW5nXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/FALL25/PRN222/ASS1/ASS1/ASS1/Views/Reporting/StatusReport.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVwb3J0aW5nXFN0YXR1c1JlcG9ydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/FALL25/PRN222/ASS1/ASS1/ASS1/Views/Shared/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/FALL25/PRN222/ASS1/ASS1/ASS1/Views/Shared/_ValidationScriptsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/FALL25/PRN222/ASS1/ASS1/ASS1/Views/TagManagement/Articles.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFnTWFuYWdlbWVudFxBcnRpY2xlcy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/FALL25/PRN222/ASS1/ASS1/ASS1/Views/TagManagement/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFnTWFuYWdlbWVudFxDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/FALL25/PRN222/ASS1/ASS1/ASS1/Views/TagManagement/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFnTWFuYWdlbWVudFxEZWxldGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/FALL25/PRN222/ASS1/ASS1/ASS1/Views/TagManagement/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFnTWFuYWdlbWVudFxEZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/FALL25/PRN222/ASS1/ASS1/ASS1/Views/TagManagement/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFnTWFuYWdlbWVudFxFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/FALL25/PRN222/ASS1/ASS1/ASS1/Views/TagManagement/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFnTWFuYWdlbWVudFxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/FALL25/PRN222/ASS1/ASS1/ASS1/Views/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/FALL25/PRN222/ASS1/ASS1/ASS1/Views/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/FALL25/PRN222/ASS1/ASS1/ASS1/Views/Shared/_Layout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = b-63r24x7cg0

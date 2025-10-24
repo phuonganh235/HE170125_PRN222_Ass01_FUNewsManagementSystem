@@ -1,0 +1,76 @@
+@model ASS1.DAL.Models.Category
+
+@{
+    ViewData["Title"] = "Category Details";
+}
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <h4>Category Details</h4>
+                </div>
+                <div class="card-body">
+                    <dl class="row">
+                        <dt class="col-sm-3">Category ID:</dt>
+                        <dd class="col-sm-9">@Model.CategoryId</dd>
+
+                        <dt class="col-sm-3">Category Name:</dt>
+                        <dd class="col-sm-9">@Model.CategoryName</dd>
+
+                        <dt class="col-sm-3">Description:</dt>
+                        <dd class="col-sm-9">@Model.CategoryDesciption</dd>
+
+                        <dt class="col-sm-3">Parent Category:</dt>
+                        <dd class="col-sm-9">
+                            @if (Model.ParentCategory != null)
+                            {
+                                @Model.ParentCategory.CategoryName
+                            }
+                            else
+                            {
+                                <span class="text-muted">Root Category</span>
+                            }
+                        </dd>
+
+                        <dt class="col-sm-3">Status:</dt>
+                        <dd class="col-sm-9">
+                            @if (Model.IsActive == true)
+                            {
+                                <span class="badge bg-success">Active</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-secondary">Inactive</span>
+                            }
+                        </dd>
+
+                        @if (Model.InverseParentCategory.Any())
+                        {
+                            <dt class="col-sm-3">Subcategories:</dt>
+                            <dd class="col-sm-9">
+                                <ul class="list-unstyled">
+                                    @foreach (var subcategory in Model.InverseParentCategory)
+                                    {
+                                        <li>
+                                            <span class="badge bg-light text-dark">@subcategory.CategoryName</span>
+                                        </li>
+                                    }
+                                </ul>
+                            </dd>
+                        }
+                    </dl>
+
+                    <div class="d-flex justify-content-between">
+                        <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+                        <div>
+                            <a asp-action="Edit" asp-route-id="@Model.CategoryId" class="btn btn-warning me-2">Edit</a>
+                            <a asp-action="Delete" asp-route-id="@Model.CategoryId" class="btn btn-danger">Delete</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

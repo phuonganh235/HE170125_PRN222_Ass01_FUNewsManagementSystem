@@ -1,0 +1,53 @@
+@model UserSession
+
+@{
+    ViewData["Title"] = "User Profile";
+}
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <h4>User Profile</h4>
+                </div>
+                <div class="card-body">
+                    <dl class="row">
+                        <dt class="col-sm-3">Account ID:</dt>
+                        <dd class="col-sm-9">@Model.AccountId</dd>
+
+                        <dt class="col-sm-3">Name:</dt>
+                        <dd class="col-sm-9">@Model.AccountName</dd>
+
+                        <dt class="col-sm-3">Email:</dt>
+                        <dd class="col-sm-9">@Model.AccountEmail</dd>
+
+                        <dt class="col-sm-3">Role:</dt>
+                        <dd class="col-sm-9">
+                            <span class="badge @(Model.AccountRole switch {
+                                1 => "bg-primary",
+                                2 => "bg-warning", 
+                                3 => "bg-danger",
+                                _ => "bg-secondary"
+                            })">
+                                @Model.RoleName
+                            </span>
+                        </dd>
+
+                        <dt class="col-sm-3">Status:</dt>
+                        <dd class="col-sm-9">
+                            <span class="badge bg-success">Authenticated</span>
+                        </dd>
+                    </dl>
+
+                    <div class="mt-4">
+                        <a asp-action="Index" asp-controller="Home" class="btn btn-primary">Go Home</a>
+                        <form asp-action="Logout" method="post" class="d-inline">
+                            <button type="submit" class="btn btn-danger">Logout</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,173 @@
+@model List<NewsArticleWithAuditViewModel>
+
+@{
+    ViewData["Title"] = "Changes by Editor";
+    var editors = ViewBag.Editors as List<ASS1.DAL.Models.SystemAccount> ?? new List<ASS1.DAL.Models.SystemAccount>();
+    var selectedEditorId = ViewBag.SelectedEditorId as int?;
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2>Changes by Editor</h2>
+                <a asp-action="Index" class="btn btn-secondary">
+                    <i class="fas fa-arrow-left"></i> All Changes
+                </a>
+            </div>
+
+            <!-- Editor Filter -->
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5>Filter by Editor</h5>
+                </div>
+                <div class="card-body">
+                    <form method="get" asp-action="ByEditor">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label">Select Editor</label>
+                                <select name="editorId" class="form-select">
+                                    <option value="">All Editors</option>
+                                    @foreach (var editor in editors)
+                                    {
+                                        <option value="@editor.AccountId" selected="@(selectedEditorId == editor.AccountId)">
+                                            @editor.AccountName (@editor.AccountEmail)
+                                        </option>
+                                    }
+                                </select>
+                            </div>
+                            <div class="col-md-2">
+                                <label class="form-label">&nbsp;</label>
+                                <div class="d-grid">
+                                    <button type="submit" class="btn btn-primary">Filter</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            @if (Model.Any())
+            {
+                <div class="card">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-striped table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Article</th>
+                                        <th>Editor</th>
+                                        <th>Modified Date</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>
+                                                <div>
+                                                    <strong>@item.Article.NewsTitle</strong>
+                                                    @if (!string.IsNullOrEmpty(item.Article.Headline))
+                                                    {
+                                                        <br><small class="text-muted">@item.Article.Headline</small>
+                                                    }
+                                                    <br><small class="text-muted">ID: @item.Article.NewsArticleId</small>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <strong>@item.LastModifiedBy</strong>
+                                                @if (item.LastEditor != null)
+                                                {
+                                                    <br><small class="text-muted">@item.LastEditor.AccountEmail</small>
+                                                }
+                                            </td>
+                                            <td>
+                                                @if (item.Article.ModifiedDate.HasValue)
+                                                {
+                                                    @item.Article.ModifiedDate.Value.ToString("MMM dd, yyyy 'at' HH:mm")
+                                                }
+                                            </td>
+                                            <td>
+                                                @if (item.Article.NewsStatus == true)
+                                                {
+                                                    <span class="badge bg-success">Active</span>
+                                                }
+                                                else
+                                                {
+                                                    <span class="badge bg-secondary">Inactive</span>
+                                                }
+                                            </td>
+                                            <td>
+                                                <a asp-action="Details" asp-route-id="@item.Article.NewsArticleId" 
+                                                   class="btn btn-sm btn-outline-info" title="View Audit Details">
+                                                    <i class="fas fa-eye"></i>
+                                                </a>
+                                                <a asp-controller="NewsArticleManagement" asp-action="Details" asp-route-id="@item.Article.NewsArticleId" 
+                                                   class="btn btn-sm btn-outline-primary" title="View Article">
+                                                    <i class="fas fa-newspaper"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Summary Statistics -->
+                <div class="row mt-4">
+                    <div class="col-md-3">
+                        <div class="card bg-primary text-white">
+                            <div class="card-body text-center">
+                                <h3>@Model.Count</h3>
+                                <p class="mb-0">Total Changes</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card bg-success text-white">
+                            <div class="card-body text-center">
+                                <h3>@Model.Count(x => x.Article.NewsStatus == true)</h3>
+                                <p class="mb-0">Active Articles</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card bg-info text-white">
+                            <div class="card-body text-center">
+                                <h3>@Model.Select(x => x.Article.NewsArticleId).Distinct().Count()</h3>
+                                <p class="mb-0">Unique Articles</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card bg-warning text-white">
+                            <div class="card-body text-center">
+                                <h3>@Model.Count(x => x.Article.ModifiedDate >= DateTime.Now.AddDays(-7))</h3>
+                                <p class="mb-0">This Week</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="text-center py-5">
+                    <h5>No changes found</h5>
+                    @if (selectedEditorId.HasValue)
+                    {
+                        <p class="text-muted">No articles have been modified by the selected editor.</p>
+                    }
+                    else
+                    {
+                        <p class="text-muted">No articles have been modified yet.</p>
+                    }
+                    <a asp-action="Index" class="btn btn-primary">View All Changes</a>
+                </div>
+            }
+        </div>
+    </div>
+</div>

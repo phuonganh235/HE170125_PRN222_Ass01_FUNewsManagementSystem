@@ -1,0 +1,338 @@
+@model ReportViewModel
+
+@{
+    ViewData["Title"] = "News Statistics & Reports";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2>News Statistics & Reports</h2>
+                <div>
+                    <a href="@Url.Action("Export", new { fromDate = Model.FromDate, toDate = Model.ToDate, format = "csv" })" 
+                       class="btn btn-success me-2">
+                        <i class="fas fa-download"></i> Export CSV
+                    </a>
+                    <a href="@Url.Action("Export", new { fromDate = Model.FromDate, toDate = Model.ToDate, format = "json" })" 
+                       class="btn btn-info">
+                        <i class="fas fa-download"></i> Export JSON
+                    </a>
+                </div>
+            </div>
+
+            <!-- Date Filter Form -->
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5>Filter Reports</h5>
+                </div>
+                <div class="card-body">
+                    <form method="get" asp-action="Index">
+                        <div class="row g-3">
+                            <div class="col-md-3">
+                                <label asp-for="FromDate" class="form-label"></label>
+                                <input asp-for="FromDate" type="date" class="form-control" />
+                            </div>
+                            <div class="col-md-3">
+                                <label asp-for="ToDate" class="form-label"></label>
+                                <input asp-for="ToDate" type="date" class="form-control" />
+                            </div>
+                            <div class="col-md-2">
+                                <label class="form-label">&nbsp;</label>
+                                <div class="d-grid">
+                                    <button type="submit" class="btn btn-primary">Generate Report</button>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <label class="form-label">&nbsp;</label>
+                                <div class="d-grid">
+                                    <a asp-action="Index" class="btn btn-outline-secondary">Clear Filters</a>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Summary Cards -->
+            <div class="row mb-4">
+                <div class="col-md-3">
+                    <div class="card bg-primary text-white">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <h4>@Model.Summary.TotalArticles</h4>
+                                    <p class="mb-0">Total Articles</p>
+                                </div>
+                                <div class="align-self-center">
+                                    <i class="fas fa-newspaper fa-2x"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card bg-success text-white">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <h4>@Model.Summary.TotalActiveArticles</h4>
+                                    <p class="mb-0">Active Articles</p>
+                                    <small>@Model.Summary.ActivePercentage%</small>
+                                </div>
+                                <div class="align-self-center">
+                                    <i class="fas fa-check-circle fa-2x"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card bg-secondary text-white">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <h4>@Model.Summary.TotalInactiveArticles</h4>
+                                    <p class="mb-0">Inactive Articles</p>
+                                    <small>@Model.Summary.InactivePercentage%</small>
+                                </div>
+                                <div class="align-self-center">
+                                    <i class="fas fa-times-circle fa-2x"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card bg-info text-white">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <h4>@Model.Summary.TotalAuthors</h4>
+                                    <p class="mb-0">Authors</p>
+                                </div>
+                                <div class="align-self-center">
+                                    <i class="fas fa-users fa-2x"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Status Report Chart -->
+            <div class="row mb-4">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>Articles by Status</h5>
+                        </div>
+                        <div class="card-body">
+                            <canvas id="statusChart" width="400" height="200"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>Top Categories</h5>
+                        </div>
+                        <div class="card-body">
+                            <canvas id="categoryChart" width="400" height="200"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Detailed Reports -->
+            <div class="row">
+                <!-- Category Report -->
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>Articles by Category</h5>
+                        </div>
+                        <div class="card-body">
+                            @if (Model.CategoryReports.Any())
+                            {
+                                <div class="table-responsive">
+                                    <table class="table table-sm">
+                                        <thead>
+                                            <tr>
+                                                <th>Category</th>
+                                                <th>Total</th>
+                                                <th>Active</th>
+                                                <th>Inactive</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var item in Model.CategoryReports.Take(10))
+                                            {
+                                                <tr>
+                                                    <td>@item.CategoryName</td>
+                                                    <td><span class="badge bg-primary">@item.ArticleCount</span></td>
+                                                    <td><span class="badge bg-success">@item.ActiveCount</span></td>
+                                                    <td><span class="badge bg-secondary">@item.InactiveCount</span></td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                                @if (Model.CategoryReports.Count > 10)
+                                {
+                                    <div class="text-center">
+                                        <a asp-action="CategoryReport" asp-route-fromDate="@Model.FromDate" asp-route-toDate="@Model.ToDate" 
+                                           class="btn btn-outline-primary btn-sm">View All Categories</a>
+                                    </div>
+                                }
+                            }
+                            else
+                            {
+                                <p class="text-muted">No category data available for the selected period.</p>
+                            }
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Author Report -->
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>Articles by Author</h5>
+                        </div>
+                        <div class="card-body">
+                            @if (Model.AuthorReports.Any())
+                            {
+                                <div class="table-responsive">
+                                    <table class="table table-sm">
+                                        <thead>
+                                            <tr>
+                                                <th>Author</th>
+                                                <th>Total</th>
+                                                <th>Active</th>
+                                                <th>Inactive</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var item in Model.AuthorReports.Take(10))
+                                            {
+                                                <tr>
+                                                    <td>@item.AuthorName</td>
+                                                    <td><span class="badge bg-primary">@item.ArticleCount</span></td>
+                                                    <td><span class="badge bg-success">@item.ActiveCount</span></td>
+                                                    <td><span class="badge bg-secondary">@item.InactiveCount</span></td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                                @if (Model.AuthorReports.Count > 10)
+                                {
+                                    <div class="text-center">
+                                        <a asp-action="AuthorReport" asp-route-fromDate="@Model.FromDate" asp-route-toDate="@Model.ToDate" 
+                                           class="btn btn-outline-primary btn-sm">View All Authors</a>
+                                    </div>
+                                }
+                            }
+                            else
+                            {
+                                <p class="text-muted">No author data available for the selected period.</p>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Report Information -->
+            <div class="row mt-4">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h6>Report Information</h6>
+                            <p class="mb-1">
+                                <strong>Generated:</strong> @Model.Summary.ReportGeneratedDate?.ToString("MMMM dd, yyyy 'at' HH:mm")
+                            </p>
+                            @if (Model.FromDate.HasValue || Model.ToDate.HasValue)
+                            {
+                                <p class="mb-1">
+                                    <strong>Date Range:</strong> 
+                                    @if (Model.FromDate.HasValue && Model.ToDate.HasValue)
+                                    {
+                                        @Model.FromDate.Value.ToString("MMM dd, yyyy")
+                                    }
+                                    else if (Model.FromDate.HasValue)
+                                    {
+                                        @("From " + Model.FromDate.Value.ToString("MMM dd, yyyy"))
+                                    }
+                                    else if (Model.ToDate.HasValue)
+                                    {
+                                        @("Until " + Model.ToDate.Value.ToString("MMM dd, yyyy"))
+                                    }
+                                </p>
+                            }
+                            else
+                            {
+                                <p class="mb-1"><strong>Date Range:</strong> All time</p>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // Status Chart
+        const statusCtx = document.getElementById('statusChart').getContext('2d');
+        const statusChart = new Chart(statusCtx, {
+            type: 'doughnut',
+            data: {
+                labels: [@Html.Raw(string.Join(",", Model.StatusReports.Select(s => $"'{s.StatusName}'")))],
+                datasets: [{
+                    data: [@string.Join(",", Model.StatusReports.Select(s => s.ArticleCount))],
+                    backgroundColor: ['#28a745', '#6c757d'],
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'bottom'
+                    }
+                }
+            }
+        });
+
+        // Category Chart
+        const categoryCtx = document.getElementById('categoryChart').getContext('2d');
+        const categoryChart = new Chart(categoryCtx, {
+            type: 'bar',
+            data: {
+                labels: [@Html.Raw(string.Join(",", Model.CategoryReports.Take(5).Select(c => $"'{c.CategoryName}'")))],
+                datasets: [{
+                    label: 'Articles',
+                    data: [@string.Join(",", Model.CategoryReports.Take(5).Select(c => c.ArticleCount))],
+                    backgroundColor: '#007bff',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                }
+            }
+        });
+    </script>
+}

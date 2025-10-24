@@ -1,0 +1,113 @@
+@model ASS1.DAL.Models.NewsArticle
+
+@{
+    ViewData["Title"] = "Article Details";
+}
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+            <div class="card">
+                <div class="card-header">
+                    <h4>Article Details</h4>
+                </div>
+                <div class="card-body">
+                    <dl class="row">
+                        <dt class="col-sm-3">Article ID:</dt>
+                        <dd class="col-sm-9">@Model.NewsArticleId</dd>
+
+                        <dt class="col-sm-3">Title:</dt>
+                        <dd class="col-sm-9">@Model.NewsTitle</dd>
+
+                        <dt class="col-sm-3">Headline:</dt>
+                        <dd class="col-sm-9">@Model.Headline</dd>
+
+                        <dt class="col-sm-3">Content:</dt>
+                        <dd class="col-sm-9">@Model.NewsContent</dd>
+
+                        <dt class="col-sm-3">Source:</dt>
+                        <dd class="col-sm-9">@Model.NewsSource</dd>
+
+                        <dt class="col-sm-3">Category:</dt>
+                        <dd class="col-sm-9">
+                            @if (Model.Category != null)
+                            {
+                                @Model.Category.CategoryName
+                            }
+                            else
+                            {
+                                <span class="text-muted">No Category</span>
+                            }
+                        </dd>
+
+                        <dt class="col-sm-3">Author:</dt>
+                        <dd class="col-sm-9">
+                            @if (Model.CreatedBy != null)
+                            {
+                                @Model.CreatedBy.AccountName
+                            }
+                            else
+                            {
+                                <span class="text-muted">Unknown</span>
+                            }
+                        </dd>
+
+                        <dt class="col-sm-3">Created Date:</dt>
+                        <dd class="col-sm-9">
+                            @if (Model.CreatedDate.HasValue)
+                            {
+                                @Model.CreatedDate.Value.ToString("MMMM dd, yyyy 'at' HH:mm")
+                            }
+                        </dd>
+
+                        <dt class="col-sm-3">Modified Date:</dt>
+                        <dd class="col-sm-9">
+                            @if (Model.ModifiedDate.HasValue)
+                            {
+                                @Model.ModifiedDate.Value.ToString("MMMM dd, yyyy 'at' HH:mm")
+                            }
+                            else
+                            {
+                                <span class="text-muted">Never modified</span>
+                            }
+                        </dd>
+
+                        <dt class="col-sm-3">Status:</dt>
+                        <dd class="col-sm-9">
+                            @if (Model.NewsStatus == true)
+                            {
+                                <span class="badge bg-success">Active</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-secondary">Inactive</span>
+                            }
+                        </dd>
+
+                        @if (Model.Tags.Any())
+                        {
+                            <dt class="col-sm-3">Tags:</dt>
+                            <dd class="col-sm-9">
+                                @foreach (var tag in Model.Tags)
+                                {
+                                    <span class="badge bg-primary me-1">@tag.TagName</span>
+                                }
+                            </dd>
+                        }
+                    </dl>
+
+                    <div class="d-flex justify-content-between">
+                        <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+                        <div>
+                            <a asp-controller="NewsTagLink" asp-action="Manage" asp-route-articleId="@Model.NewsArticleId" 
+                               class="btn btn-outline-primary me-2">Manage Tags</a>
+                            <a asp-action="Edit" asp-route-id="@Model.NewsArticleId" class="btn btn-warning me-2">Edit</a>
+                            <a asp-action="Duplicate" asp-route-id="@Model.NewsArticleId" class="btn btn-info me-2">Duplicate</a>
+                            <a asp-action="Delete" asp-route-id="@Model.NewsArticleId" class="btn btn-danger">Delete</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

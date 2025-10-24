@@ -1,0 +1,57 @@
+@model ASS1.DAL.Models.SystemAccount
+
+@{
+    ViewData["Title"] = "Account Details";
+}
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <h4>Account Details</h4>
+                </div>
+                <div class="card-body">
+                    <dl class="row">
+                        <dt class="col-sm-3">Account ID:</dt>
+                        <dd class="col-sm-9">@Model.AccountId</dd>
+
+                        <dt class="col-sm-3">Account Name:</dt>
+                        <dd class="col-sm-9">@Model.AccountName</dd>
+
+                        <dt class="col-sm-3">Email:</dt>
+                        <dd class="col-sm-9">@Model.AccountEmail</dd>
+
+                        <dt class="col-sm-3">Role:</dt>
+                        <dd class="col-sm-9">
+                            @switch (Model.AccountRole)
+                            {
+                                case 1:
+                                    <span class="badge bg-primary">Staff</span>
+                                    break;
+                                case 2:
+                                    <span class="badge bg-warning">Lecturer</span>
+                                    break;
+                                case 3:
+                                    <span class="badge bg-danger">Admin</span>
+                                    break;
+                                default:
+                                    <span class="badge bg-secondary">Unknown</span>
+                                    break;
+                            }
+                        </dd>
+                    </dl>
+
+                    <div class="d-flex justify-content-between">
+                        <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+                        <div>
+                            <a asp-action="Edit" asp-route-id="@Model.AccountId" class="btn btn-warning me-2">Edit</a>
+                            <a asp-action="ChangePassword" asp-route-id="@Model.AccountId" class="btn btn-info me-2">Change Password</a>
+                            <a asp-action="Delete" asp-route-id="@Model.AccountId" class="btn btn-danger">Delete</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,197 @@
+@model ArticleTagManagementViewModel
+
+@{
+    ViewData["Title"] = "Manage Article Tags";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2>Manage Tags for: @Model.ArticleTitle</h2>
+                <a asp-controller="NewsArticleManagement" asp-action="Index" class="btn btn-secondary">
+                    <i class="fas fa-arrow-left"></i> Back to Articles
+                </a>
+            </div>
+
+            @if (TempData["SuccessMessage"] != null)
+            {
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    @TempData["SuccessMessage"]
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            }
+
+            @if (TempData["ErrorMessage"] != null)
+            {
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    @TempData["ErrorMessage"]
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            }
+
+            <div class="row">
+                <!-- Current Tags -->
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>Current Tags (@Model.CurrentTags.Count)</h5>
+                        </div>
+                        <div class="card-body">
+                            @if (Model.CurrentTags.Any())
+                            {
+                                <div class="d-flex flex-wrap gap-2">
+                                    @foreach (var tag in Model.CurrentTags)
+                                    {
+                                        <div class="d-flex align-items-center bg-primary text-white rounded px-3 py-2">
+                                            <span class="me-2">@tag.TagName</span>
+                                            <form asp-action="RemoveTag" method="post" class="d-inline">
+                                                <input type="hidden" name="NewsArticleId" value="@tag.NewsArticleId" />
+                                                <input type="hidden" name="TagId" value="@tag.TagId" />
+                                                <input type="hidden" name="TagName" value="@tag.TagName" />
+                                                <button type="submit" class="btn btn-sm btn-outline-light" 
+                                                        title="Remove tag" onclick="return confirm('Remove this tag?')">
+                                                    <i class="fas fa-times"></i>
+                                                </button>
+                                            </form>
+                                        </div>
+                                    }
+                                </div>
+                            }
+                            else
+                            {
+                                <p class="text-muted">No tags assigned to this article.</p>
+                            }
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Available Tags -->
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>Available Tags (@Model.AvailableTags.Count)</h5>
+                        </div>
+                        <div class="card-body">
+                            @if (Model.AvailableTags.Any())
+                            {
+                                <div class="d-flex flex-wrap gap-2">
+                                    @foreach (var tag in Model.AvailableTags)
+                                    {
+                                        <div class="d-flex align-items-center bg-light border rounded px-3 py-2">
+                                            <span class="me-2">@tag.Text</span>
+                                            <form asp-action="AddTag" method="post" class="d-inline">
+                                                <input type="hidden" name="NewsArticleId" value="@Model.NewsArticleId" />
+                                                <input type="hidden" name="TagId" value="@tag.Value" />
+                                                <input type="hidden" name="TagName" value="@tag.Text" />
+                                                <button type="submit" class="btn btn-sm btn-outline-primary" title="Add tag">
+                                                    <i class="fas fa-plus"></i>
+                                                </button>
+                                            </form>
+                                        </div>
+                                    }
+                                </div>
+                            }
+                            else
+                            {
+                                <p class="text-muted">All available tags are already assigned to this article.</p>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bulk Tag Management -->
+            <div class="row mt-4">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>Bulk Tag Management</h5>
+                        </div>
+                        <div class="card-body">
+                            <form asp-action="UpdateTags" method="post">
+                                <input type="hidden" asp-for="NewsArticleId" />
+                                <input type="hidden" asp-for="ArticleTitle" />
+                                
+                                <div class="mb-3">
+                                    <label class="form-label">Select Tags to Assign:</label>
+                                    <div class="row">
+                                        @foreach (var tag in Model.AvailableTags.Concat(
+                                            Model.CurrentTags.Select(t => new TagOption { Value = t.TagId, Text = t.TagName }))
+                                            .DistinctBy(t => t.Value)
+                                            .OrderBy(t => t.Text))
+                                        {
+                                            <div class="col-md-3 mb-2">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" 
+                                                           name="SelectedTagIds" value="@tag.Value" 
+                                                           id="tag_@tag.Value"
+                                                           @(Model.CurrentTags.Any(t => t.TagId == tag.Value) ? "checked" : "") />
+                                                    <label class="form-check-label" for="tag_@tag.Value">
+                                                        @tag.Text
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+
+                                <div class="d-flex justify-content-between">
+                                    <a asp-controller="NewsArticleManagement" asp-action="Index" class="btn btn-secondary">Cancel</a>
+                                    <button type="submit" class="btn btn-primary">Update Tags</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Actions -->
+            <div class="row mt-4">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>Quick Actions</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="d-flex gap-2">
+                                <a asp-controller="NewsArticleManagement" asp-action="Edit" asp-route-id="@Model.NewsArticleId" 
+                                   class="btn btn-warning">
+                                    <i class="fas fa-edit"></i> Edit Article
+                                </a>
+                                <a asp-controller="NewsArticleManagement" asp-action="Details" asp-route-id="@Model.NewsArticleId" 
+                                   class="btn btn-info">
+                                    <i class="fas fa-eye"></i> View Article
+                                </a>
+                                <a asp-controller="TagManagement" asp-action="Index" 
+                                   class="btn btn-outline-primary">
+                                    <i class="fas fa-tags"></i> Manage All Tags
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // Auto-refresh available tags when tags are added/removed
+        function refreshPage() {
+            setTimeout(function() {
+                location.reload();
+            }, 1000);
+        }
+
+        // Add event listeners to forms for better UX
+        document.querySelectorAll('form[action*="AddTag"], form[action*="RemoveTag"]').forEach(form => {
+            form.addEventListener('submit', function() {
+                const button = this.querySelector('button[type="submit"]');
+                button.disabled = true;
+                button.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+            });
+        });
+    </script>
+}

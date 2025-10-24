@@ -1,0 +1,66 @@
+@model TagDetailsViewModel
+
+@{
+    ViewData["Title"] = "Tag Details";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <h4>Tag Details</h4>
+                </div>
+                <div class="card-body">
+                    <dl class="row">
+                        <dt class="col-sm-3">Tag ID:</dt>
+                        <dd class="col-sm-9">@Model.Tag.TagId</dd>
+
+                        <dt class="col-sm-3">Tag Name:</dt>
+                        <dd class="col-sm-9">
+                            <span class="badge bg-primary fs-6">@Model.Tag.TagName</span>
+                        </dd>
+
+                        <dt class="col-sm-3">Note:</dt>
+                        <dd class="col-sm-9">
+                            @if (!string.IsNullOrEmpty(Model.Tag.Note))
+                            {
+                                @Model.Tag.Note
+                            }
+                            else
+                            {
+                                <span class="text-muted">No note provided</span>
+                            }
+                        </dd>
+
+                        <dt class="col-sm-3">Articles Count:</dt>
+                        <dd class="col-sm-9">
+                            <span class="badge bg-info fs-6">@Model.ArticleCount</span>
+                        </dd>
+
+                        <dt class="col-sm-3">Can Delete:</dt>
+                        <dd class="col-sm-9">
+                            @if (Model.CanDelete)
+                            {
+                                <span class="badge bg-success">Yes</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-warning">No (has associated articles)</span>
+                            }
+                        </dd>
+                    </dl>
+
+                    <div class="d-flex justify-content-between">
+                        <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+                        <div>
+                            <a asp-action="Articles" asp-route-id="@Model.Tag.TagId" class="btn btn-info me-2">View Articles</a>
+                            <a asp-action="Edit" asp-route-id="@Model.Tag.TagId" class="btn btn-warning me-2">Edit</a>
+                            <a asp-action="Delete" asp-route-id="@Model.Tag.TagId" class="btn btn-danger">Delete</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

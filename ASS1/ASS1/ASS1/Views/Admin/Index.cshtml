@@ -1,0 +1,55 @@
+@model IEnumerable<ASS1.DAL.Models.SystemAccount>
+
+@{
+    ViewData["Title"] = "System Accounts";
+}
+
+<div class="container">
+    <h2>System Accounts</h2>
+    
+    <div class="row mb-3">
+        <div class="col-md-6">
+            <a asp-action="CheckAdmin" class="btn btn-info">Check Admin Account</a>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Account ID</th>
+                    <th>Account Name</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var account in Model)
+                {
+                    <tr>
+                        <td>@account.AccountId</td>
+                        <td>@account.AccountName</td>
+                        <td>@account.AccountEmail</td>
+                        <td>
+                            @switch (account.AccountRole)
+                            {
+                                case 1:
+                                    <span class="badge bg-primary">Staff</span>
+                                    break;
+                                case 2:
+                                    <span class="badge bg-warning">Lecturer</span>
+                                    break;
+                                case 3:
+                                    <span class="badge bg-danger">Admin</span>
+                                    break;
+                                default:
+                                    <span class="badge bg-secondary">Unknown</span>
+                                    break;
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

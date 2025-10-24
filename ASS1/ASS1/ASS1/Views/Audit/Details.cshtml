@@ -1,0 +1,190 @@
+@model NewsArticleWithAuditViewModel
+
+@{
+    ViewData["Title"] = "Audit Details";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2>Audit Details</h2>
+                <a asp-action="Index" class="btn btn-secondary">
+                    <i class="fas fa-arrow-left"></i> Back to Audit
+                </a>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h4>Article Information</h4>
+                </div>
+                <div class="card-body">
+                    <dl class="row">
+                        <dt class="col-sm-3">Article ID:</dt>
+                        <dd class="col-sm-9">@Model.Article.NewsArticleId</dd>
+
+                        <dt class="col-sm-3">Title:</dt>
+                        <dd class="col-sm-9">@Model.Article.NewsTitle</dd>
+
+                        <dt class="col-sm-3">Headline:</dt>
+                        <dd class="col-sm-9">@Model.Article.Headline</dd>
+
+                        <dt class="col-sm-3">Category:</dt>
+                        <dd class="col-sm-9">
+                            @if (Model.Article.Category != null)
+                            {
+                                <span class="badge bg-primary">@Model.Article.Category.CategoryName</span>
+                            }
+                            else
+                            {
+                                <span class="text-muted">No Category</span>
+                            }
+                        </dd>
+
+                        <dt class="col-sm-3">Status:</dt>
+                        <dd class="col-sm-9">
+                            @if (Model.Article.NewsStatus == true)
+                            {
+                                <span class="badge bg-success">Active</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-secondary">Inactive</span>
+                            }
+                        </dd>
+
+                        @if (Model.Article.Tags.Any())
+                        {
+                            <dt class="col-sm-3">Tags:</dt>
+                            <dd class="col-sm-9">
+                                @foreach (var tag in Model.Article.Tags)
+                                {
+                                    <span class="badge bg-secondary me-1">@tag.TagName</span>
+                                }
+                            </dd>
+                        }
+                    </dl>
+                </div>
+            </div>
+
+            <div class="row mt-4">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>Creation Information</h5>
+                        </div>
+                        <div class="card-body">
+                            <dl class="row">
+                                <dt class="col-sm-4">Created By:</dt>
+                                <dd class="col-sm-8">@Model.CreatedBy</dd>
+
+                                <dt class="col-sm-4">Created Date:</dt>
+                                <dd class="col-sm-8">
+                                    @if (Model.Article.CreatedDate.HasValue)
+                                    {
+                                        @Model.Article.CreatedDate.Value.ToString("MMMM dd, yyyy 'at' HH:mm")
+                                    }
+                                    else
+                                    {
+                                        <span class="text-muted">Not available</span>
+                                    }
+                                </dd>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>Modification Information</h5>
+                        </div>
+                        <div class="card-body">
+                            @if (Model.WasModified)
+                            {
+                                <dl class="row">
+                                    <dt class="col-sm-4">Last Editor:</dt>
+                                    <dd class="col-sm-8">@Model.LastModifiedBy</dd>
+
+                                    <dt class="col-sm-4">Modified Date:</dt>
+                                    <dd class="col-sm-8">
+                                        @if (Model.Article.ModifiedDate.HasValue)
+                                        {
+                                            @Model.Article.ModifiedDate.Value.ToString("MMMM dd, yyyy 'at' HH:mm")
+                                        }
+                                    </dd>
+
+                                    <dt class="col-sm-4">Time Since:</dt>
+                                    <dd class="col-sm-8">
+                                        @if (Model.Article.ModifiedDate.HasValue)
+                                        {
+                                            var timeSince = DateTime.Now - Model.Article.ModifiedDate.Value;
+                                            if (timeSince.TotalDays >= 1)
+                                            {
+                                                <span class="text-muted">@((int)timeSince.TotalDays) days ago</span>
+                                            }
+                                            else if (timeSince.TotalHours >= 1)
+                                            {
+                                                <span class="text-muted">@((int)timeSince.TotalHours) hours ago</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="text-muted">@((int)timeSince.TotalMinutes) minutes ago</span>
+                                            }
+                                        }
+                                    </dd>
+                                </dl>
+                            }
+                            else
+                            {
+                                <p class="text-muted">This article has not been modified since creation.</p>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt-4">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>Article Content</h5>
+                        </div>
+                        <div class="card-body">
+                            @if (!string.IsNullOrEmpty(Model.Article.NewsContent))
+                            {
+                                <p>@Model.Article.NewsContent</p>
+                            }
+                            else
+                            {
+                                <p class="text-muted">No content available.</p>
+                            }
+
+                            @if (!string.IsNullOrEmpty(Model.Article.NewsSource))
+                            {
+                                <hr>
+                                <p class="text-muted">
+                                    <strong>Source:</strong> @Model.Article.NewsSource
+                                </p>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt-4">
+                <div class="col-12">
+                    <div class="d-flex justify-content-between">
+                        <a asp-action="Index" class="btn btn-secondary">Back to Audit</a>
+                        <div>
+                            <a asp-controller="NewsArticleManagement" asp-action="Details" asp-route-id="@Model.Article.NewsArticleId" 
+                               class="btn btn-info me-2">View Article</a>
+                            <a asp-controller="NewsArticleManagement" asp-action="Edit" asp-route-id="@Model.Article.NewsArticleId" 
+                               class="btn btn-warning">Edit Article</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

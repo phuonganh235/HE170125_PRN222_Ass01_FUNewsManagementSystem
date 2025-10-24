@@ -1,0 +1,108 @@
+@model IEnumerable<ASS1.DAL.Models.NewsArticle>
+
+@{
+    ViewData["Title"] = "News Articles";
+    var searchTerm = ViewBag.SearchTerm as string;
+}
+
+<div class="container">
+    <div class="row mb-4">
+        <div class="col-12">
+            <h2>Latest News</h2>
+            
+            <!-- Search Form -->
+            <form method="get" class="mb-3">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="input-group">
+                            <input type="text" 
+                                   name="searchTerm" 
+                                   class="form-control" 
+                                   placeholder="Search by title, headline, or content..." 
+                                   value="@searchTerm" />
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-search"></i> Search
+                            </button>
+                            @if (!string.IsNullOrEmpty(searchTerm))
+                            {
+                                <a asp-action="Index" class="btn btn-outline-secondary">
+                                    <i class="fas fa-times"></i> Clear
+                                </a>
+                            }
+                        </div>
+                    </div>
+                    <div class="col-md-4 text-end">
+                        <!-- Search functionality is integrated above -->
+                    </div>
+                </div>
+            </form>
+
+            @if (!string.IsNullOrEmpty(searchTerm))
+            {
+                <div class="alert alert-info">
+                    <i class="fas fa-info-circle"></i>
+                    Search results for: <strong>"@searchTerm"</strong>
+                    @if (Model.Any())
+                    {
+                        <span class="badge bg-primary ms-2">@Model.Count() article(s) found</span>
+                    }
+                </div>
+            }
+            else
+            {
+                <p class="text-muted">Showing all active news articles</p>
+            }
+        </div>
+    </div>
+
+    <div class="row">
+        @if (Model.Any())
+        {
+            @foreach (var article in Model.OrderByDescending(x => x.CreatedDate))
+            {
+                <div class="col-md-6 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">@article.NewsTitle</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">@article.Headline</h6>
+                            <p class="card-text">
+                                @if (!string.IsNullOrEmpty(article.NewsContent) && article.NewsContent.Length > 200)
+                                {
+                                    @article.NewsContent.Substring(0, 200)
+                                }
+                                else
+                                {
+                                    @article.NewsContent
+                                }
+                            </p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <small class="text-muted">
+                                    @if (article.CreatedDate.HasValue)
+                                    {
+                                        @article.CreatedDate.Value.ToString("MMM dd, yyyy")
+                                    }
+                                </small>
+                                <a asp-action="Details" asp-route-id="@article.NewsArticleId" class="btn btn-sm btn-primary">Read More</a>
+                            </div>
+                        </div>
+                        @if (article.Category != null)
+                        {
+                            <div class="card-footer">
+                                <span class="badge bg-secondary">@article.Category.CategoryName</span>
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <div class="col-12">
+                <div class="alert alert-info text-center">
+                    <h4>No News Available</h4>
+                    <p>There are currently no active news articles to display.</p>
+                </div>
+            </div>
+        }
+    </div>
+</div>

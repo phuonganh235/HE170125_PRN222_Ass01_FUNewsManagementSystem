@@ -1,0 +1,62 @@
+@model AccountCreateViewModel
+
+@{
+    ViewData["Title"] = "Create Account";
+}
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <h4>Create New Account</h4>
+                </div>
+                <div class="card-body">
+                    <form asp-action="Create" method="post">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        
+                        <div class="mb-3">
+                            <label asp-for="AccountName" class="form-label"></label>
+                            <input asp-for="AccountName" class="form-control" placeholder="Enter account name" />
+                            <span asp-validation-for="AccountName" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="AccountEmail" class="form-label"></label>
+                            <input asp-for="AccountEmail" class="form-control" placeholder="Enter email address" />
+                            <span asp-validation-for="AccountEmail" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="AccountPassword" class="form-label"></label>
+                            <input asp-for="AccountPassword" class="form-control" placeholder="Enter password" />
+                            <span asp-validation-for="AccountPassword" class="text-danger"></span>
+                            <div class="form-text">Password must be at least 6 characters long.</div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="AccountRole" class="form-label"></label>
+                            <select asp-for="AccountRole" class="form-select">
+                                <option value="">Select a role</option>
+                                @foreach (var role in Model.RoleOptions)
+                                {
+                                    <option value="@role.Value">@role.Text</option>
+                                }
+                            </select>
+                            <span asp-validation-for="AccountRole" class="text-danger"></span>
+                        </div>
+
+                        <div class="d-flex justify-content-between">
+                            <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+                            <button type="submit" class="btn btn-primary">Create Account</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,0 +1,42 @@
+D:\Visual Studio\ASS1\ASS1.DAL\bin\Debug\net8.0\ASS1.DAL.deps.json
+D:\Visual Studio\ASS1\ASS1.DAL\bin\Debug\net8.0\ASS1.DAL.runtimeconfig.json
+D:\Visual Studio\ASS1\ASS1.DAL\bin\Debug\net8.0\ASS1.DAL.dll
+D:\Visual Studio\ASS1\ASS1.DAL\bin\Debug\net8.0\ASS1.DAL.pdb
+D:\Visual Studio\ASS1\ASS1.DAL\obj\Debug\net8.0\ASS1.DAL.csproj.AssemblyReference.cache
+D:\Visual Studio\ASS1\ASS1.DAL\obj\Debug\net8.0\ASS1.DAL.GeneratedMSBuildEditorConfig.editorconfig
+D:\Visual Studio\ASS1\ASS1.DAL\obj\Debug\net8.0\ASS1.DAL.AssemblyInfoInputs.cache
+D:\Visual Studio\ASS1\ASS1.DAL\obj\Debug\net8.0\ASS1.DAL.AssemblyInfo.cs
+D:\Visual Studio\ASS1\ASS1.DAL\obj\Debug\net8.0\ASS1.DAL.csproj.CoreCompileInputs.cache
+D:\Visual Studio\ASS1\ASS1.DAL\obj\Debug\net8.0\ASS1.DAL.dll
+D:\Visual Studio\ASS1\ASS1.DAL\obj\Debug\net8.0\refint\ASS1.DAL.dll
+D:\Visual Studio\ASS1\ASS1.DAL\obj\Debug\net8.0\ASS1.DAL.pdb
+D:\Visual Studio\ASS1\ASS1.DAL\obj\Debug\net8.0\ASS1.DAL.genruntimeconfig.cache
+D:\Visual Studio\ASS1\ASS1.DAL\obj\Debug\net8.0\ref\ASS1.DAL.dll
+D:\ASS1\ASS1.DAL\bin\Debug\net8.0\ASS1.DAL.deps.json
+D:\ASS1\ASS1.DAL\bin\Debug\net8.0\ASS1.DAL.runtimeconfig.json
+D:\ASS1\ASS1.DAL\bin\Debug\net8.0\ASS1.DAL.dll
+D:\ASS1\ASS1.DAL\bin\Debug\net8.0\ASS1.DAL.pdb
+D:\ASS1\ASS1.DAL\obj\Debug\net8.0\ASS1.DAL.csproj.AssemblyReference.cache
+D:\ASS1\ASS1.DAL\obj\Debug\net8.0\ASS1.DAL.GeneratedMSBuildEditorConfig.editorconfig
+D:\ASS1\ASS1.DAL\obj\Debug\net8.0\ASS1.DAL.AssemblyInfoInputs.cache
+D:\ASS1\ASS1.DAL\obj\Debug\net8.0\ASS1.DAL.AssemblyInfo.cs
+D:\ASS1\ASS1.DAL\obj\Debug\net8.0\ASS1.DAL.csproj.CoreCompileInputs.cache
+D:\ASS1\ASS1.DAL\obj\Debug\net8.0\ASS1.DAL.dll
+D:\ASS1\ASS1.DAL\obj\Debug\net8.0\refint\ASS1.DAL.dll
+D:\ASS1\ASS1.DAL\obj\Debug\net8.0\ASS1.DAL.pdb
+D:\ASS1\ASS1.DAL\obj\Debug\net8.0\ASS1.DAL.genruntimeconfig.cache
+D:\ASS1\ASS1.DAL\obj\Debug\net8.0\ref\ASS1.DAL.dll
+D:\FALL25\PRN222\ASS1\ASS1\ASS1.DAL\bin\Debug\net8.0\ASS1.DAL.deps.json
+D:\FALL25\PRN222\ASS1\ASS1\ASS1.DAL\bin\Debug\net8.0\ASS1.DAL.runtimeconfig.json
+D:\FALL25\PRN222\ASS1\ASS1\ASS1.DAL\bin\Debug\net8.0\ASS1.DAL.dll
+D:\FALL25\PRN222\ASS1\ASS1\ASS1.DAL\bin\Debug\net8.0\ASS1.DAL.pdb
+D:\FALL25\PRN222\ASS1\ASS1\ASS1.DAL\obj\Debug\net8.0\ASS1.DAL.csproj.AssemblyReference.cache
+D:\FALL25\PRN222\ASS1\ASS1\ASS1.DAL\obj\Debug\net8.0\ASS1.DAL.GeneratedMSBuildEditorConfig.editorconfig
+D:\FALL25\PRN222\ASS1\ASS1\ASS1.DAL\obj\Debug\net8.0\ASS1.DAL.AssemblyInfoInputs.cache
+D:\FALL25\PRN222\ASS1\ASS1\ASS1.DAL\obj\Debug\net8.0\ASS1.DAL.AssemblyInfo.cs
+D:\FALL25\PRN222\ASS1\ASS1\ASS1.DAL\obj\Debug\net8.0\ASS1.DAL.csproj.CoreCompileInputs.cache
+D:\FALL25\PRN222\ASS1\ASS1\ASS1.DAL\obj\Debug\net8.0\ASS1.DAL.dll
+D:\FALL25\PRN222\ASS1\ASS1\ASS1.DAL\obj\Debug\net8.0\refint\ASS1.DAL.dll
+D:\FALL25\PRN222\ASS1\ASS1\ASS1.DAL\obj\Debug\net8.0\ASS1.DAL.pdb
+D:\FALL25\PRN222\ASS1\ASS1\ASS1.DAL\obj\Debug\net8.0\ASS1.DAL.genruntimeconfig.cache
+D:\FALL25\PRN222\ASS1\ASS1\ASS1.DAL\obj\Debug\net8.0\ref\ASS1.DAL.dll

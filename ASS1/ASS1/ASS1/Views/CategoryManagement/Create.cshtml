@@ -1,0 +1,67 @@
+@model CategoryCreateViewModel
+
+@{
+    ViewData["Title"] = "Create Category";
+}
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <h4>Create New Category</h4>
+                </div>
+                <div class="card-body">
+                    <form asp-action="Create" method="post">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        
+                        <div class="mb-3">
+                            <label asp-for="CategoryName" class="form-label"></label>
+                            <input asp-for="CategoryName" class="form-control" placeholder="Enter category name" />
+                            <span asp-validation-for="CategoryName" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="CategoryDesciption" class="form-label"></label>
+                            <textarea asp-for="CategoryDesciption" class="form-control" rows="3" placeholder="Enter category description"></textarea>
+                            <span asp-validation-for="CategoryDesciption" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="ParentCategoryId" class="form-label"></label>
+                            <select asp-for="ParentCategoryId" class="form-select">
+                                @foreach (var option in Model.ParentCategoryOptions)
+                                {
+                                    if (option.Value == 0)
+                                    {
+                                        <option value="">@option.Text</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@option.Value">@option.Text</option>
+                                    }
+                                }
+                            </select>
+                            <span asp-validation-for="ParentCategoryId" class="text-danger"></span>
+                            <div class="form-text">Select a parent category or leave empty for root category.</div>
+                        </div>
+
+                        <div class="mb-3 form-check">
+                            <input asp-for="IsActive" class="form-check-input" />
+                            <label asp-for="IsActive" class="form-check-label"></label>
+                        </div>
+
+                        <div class="d-flex justify-content-between">
+                            <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+                            <button type="submit" class="btn btn-primary">Create Category</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

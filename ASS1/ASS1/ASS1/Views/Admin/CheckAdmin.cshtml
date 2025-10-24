@@ -1,0 +1,54 @@
+@{
+    ViewData["Title"] = "Admin Account Check";
+}
+
+<div class="container">
+    <h2>Admin Account Status</h2>
+    
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Default Admin Account</h5>
+                </div>
+                <div class="card-body">
+                    @if (ViewBag.AdminExists)
+                    {
+                        <div class="alert alert-success">
+                            <h6>✅ Admin Account Found</h6>
+                            <p>@ViewBag.AdminInfo</p>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="alert alert-warning">
+                            <h6>⚠️ Admin Account Not Found</h6>
+                            <p>@ViewBag.AdminInfo</p>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-3">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Default Admin Credentials</h5>
+                </div>
+                <div class="card-body">
+                    <p><strong>Email:</strong> admin@FUNewsManagementSystem.org</p>
+                    <p><strong>Password:</strong> @@abc123@@</p>
+                    <p><strong>Role:</strong> Admin (3)</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-3">
+        <div class="col-md-8">
+            <a asp-action="Index" class="btn btn-secondary">Back to Accounts</a>
+        </div>
+    </div>
+</div>

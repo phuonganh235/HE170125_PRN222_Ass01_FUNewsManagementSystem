@@ -1,0 +1,98 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+    var currentUser = ViewBag.CurrentUser as ASS1.Models.UserSession;
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome to FU News Management System</h1>
+    
+    @if (currentUser != null)
+    {
+        <div class="alert alert-success">
+            <h4>Welcome back, @currentUser.AccountName!</h4>
+            <p>You are logged in as <span class="badge bg-primary">@currentUser.RoleName</span></p>
+        </div>
+        
+        <div class="row mt-4">
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <i class="fas fa-newspaper text-primary"></i> View News
+                        </h5>
+                        <p class="card-text">Read the latest news articles</p>
+                        <a asp-controller="News" asp-action="Index" class="btn btn-primary">
+                            <i class="fas fa-eye"></i> Browse News
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            @if (currentUser.AccountRole == 1 || currentUser.AccountRole == 3) // Staff or Admin
+            {
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <i class="fas fa-tools text-success"></i> Staff Management
+                            </h5>
+                            <p class="card-text">Manage categories, articles, and tags</p>
+                            <a asp-controller="NewsArticleManagement" asp-action="Index" class="btn btn-success">
+                                <i class="fas fa-edit"></i> Manage Articles
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            }
+            
+            @if (currentUser.AccountRole == 2 || currentUser.AccountRole == 3) // Lecturer or Admin
+            {
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <i class="fas fa-search text-info"></i> Search News
+                            </h5>
+                            <p class="card-text">Search through news articles</p>
+                            <a asp-controller="News" asp-action="Index" class="btn btn-info">
+                                <i class="fas fa-search"></i> Browse & Search
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            }
+            
+            @if (currentUser.AccountRole == 3) // Admin only
+            {
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <i class="fas fa-cog text-warning"></i> Admin Functions
+                            </h5>
+                            <p class="card-text">Manage accounts, reports, and system settings</p>
+                            <a asp-controller="AccountManagement" asp-action="Index" class="btn btn-warning">
+                                <i class="fas fa-users"></i> Account Management
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <p class="lead">Please <a asp-controller="Account" asp-action="Login">login</a> to access the news management system.</p>
+        
+        <div class="mt-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5>Default Admin Account</h5>
+                    <p><strong>Email:</strong> admin@FUNewsManagementSystem.org</p>
+                    <p><strong>Password:</strong> @@abc123@@</p>
+                    <a asp-controller="Account" asp-action="Login" class="btn btn-primary">Login as Admin</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>
